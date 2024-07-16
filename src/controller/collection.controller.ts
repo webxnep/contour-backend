@@ -1,0 +1,121 @@
+import { NextFunction, Request, Response } from "express";
+import AppError from "../utils/appError";
+import { CreateCollectionInput, UpdateCollectionInput } from "../schema/collection.schema";
+import { createCollection, deleteCollection, findAllCollection, findAndUpdateCollection, findCollection } from "../service/collection.service";
+import { uploadSingleFile } from "../middleware/uploadSingleFile";
+var colors = require("colors");
+
+export async function createCollectionHandler(req: Request<{}, {}, CreateCollectionInput["body"]>, res: Response, next: NextFunction) {
+  try {
+    const image = req.file;
+
+    let img1;
+    if (image) {
+      img1 = await uploadSingleFile(image);
+    }
+ 
+    const body = req.body;
+    const collection = await createCollection({ ...body, image: img1 });
+
+    return res.status(201).json({
+      status: "success",
+      msg: "Create success",
+      data: collection,
+    });
+
+  } catch (error: any) {
+    console.error(colors.red("msg:", error.message));
+    next(new AppError("Internal server error", 500));
+  }
+}
+
+export async function updateCollectionHandler(req: Request<UpdateCollectionInput["params"]>, res: Response, next: NextFunction) {
+  try {
+    const image = req.file;
+
+    const collectionId = req.params.collectionId;
+    const collection = await findCollection({ collectionId });
+
+    if (!collection) {
+      next(new AppError("Collection does not exist", 404));
+      return;
+    }
+
+    let img1;
+    if (image) {
+      img1 = await uploadSingleFile(image);
+    }
+
+    const updatedCollection = await findAndUpdateCollection(
+      { collectionId },
+      { ...req.body, image: img1 },
+      {
+        new: true,
+      }
+    );
+
+    return res.json({
+      status: "success",
+      msg: "Update success",
+      data: updatedCollection,
+    });
+  } catch (error: any) {
+    console.error("Error:", error.message);
+    next(new AppError("Internal server error", 500));
+  }
+}
+
+export async function getCollectionHandler(req: Request<UpdateCollectionInput["params"]>, res: Response, next: NextFunction) {
+  try {
+    const collectionId = req.params.collectionId;
+    const collection = await findCollection({ collectionId });
+
+    if (!collection) {
+      next(new AppError("Collection does not exist", 404));
+    }
+
+    return res.json({
+      status: "success",
+      msg: "Get success",
+      data: collection,
+    });
+  } catch (error: any) {
+    console.error(colors.red("msg:", error.message));
+    next(new AppError("Internal server error", 500));
+  }
+}
+
+export async function deleteCollectionHandler(req: Request<UpdateCollectionInput["params"]>, res: Response, next: NextFunction) {
+  try {
+    const collectionId = req.params.collectionId;
+    const collection = await findCollection({ collectionId });
+
+    if (!collection) {
+      next(new AppError("collection does not exist", 404));
+    }
+
+    await deleteCollection({ collectionId });
+    return res.json({
+      status: "success",
+      msg: "Delete success",
+      data: {},
+    });
+  } catch (error: any) {
+    console.error(colors.red("msg:", error.message));
+    next(new AppError("Internal server error", 500));
+  }
+}
+
+export async function getAllCollectionHandler(req: Request, res: Response, next: NextFunction) {
+  try {
+    const results = await findAllCollection();
+    return res.json({
+      status: "success",
+      msg: "Get all collections success",
+      data: results,
+    });
+  } catch (error: any) {
+    console.error(colors.red("msg:", error.message));
+    next(new AppError("Internal server error", 500));
+  }
+}
