@@ -9,23 +9,24 @@ const router = express.Router();
 
 router.post(
   "/",
-  
-  
+
+  // [
+  //   requireAdmin,
+  // ],
   createGroupDepartureHandler
 );
 
 router.patch(
+  
   "/:groupDepartureId",
-  [
-    requireAdmin,
-   
-  ],
+  // [
+  //   requireAdmin,
+  // ],
   updateGroupDepartureHandler
 );
+
 router.get("/:groupDepartureId", [validate(getGroupDepartureSchema)], getGroupDepartureHandler);
-
 router.get("/", getAllGroupDepartureHandler);
-router.delete("/:GroupDepartureId", [validate(deleteGroupDepartureSchema), requireAdmin], deleteGroupDepartureHandler);
-
+router.delete("/:groupDepartureId", [validate(deleteGroupDepartureSchema)], deleteGroupDepartureHandler);
 
 export default router;

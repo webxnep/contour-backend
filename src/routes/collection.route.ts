@@ -11,6 +11,6 @@ router.post("/", [ upload.single("image"), validate(createCollectionSchema)], cr
 router.patch("/:collectionId", [ upload.single("image")], updateCollectionHandler);
 router.get("/:collectionId", [ validate(getCollectionSchema)], getCollectionHandler);
 router.get("/",  getAllCollectionHandler);
-router.delete("/:collectionId", [ validate(deleteCollectionSchema),requireAdmin], deleteCollectionHandler);
+router.delete("/:collectionId", [ validate(deleteCollectionSchema)], deleteCollectionHandler);
 
 export default router;

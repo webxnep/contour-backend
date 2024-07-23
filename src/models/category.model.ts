@@ -9,6 +9,7 @@ export interface CategoryInput {
   image?: string;
   description?: string;
   collections: CollectionDocument["_id"];
+  slug?: string;
 }
 
 export interface CategoryDocument extends CategoryInput, mongoose.Document {
@@ -27,6 +28,7 @@ const CategorySchema = new mongoose.Schema(
     name: { type: String, required: true },
     image: { type: String },
     description: { type: String },
+    slug: { type: String },
     collections: { type: mongoose.Schema.Types.ObjectId, ref: "Collections" },
   },
   {

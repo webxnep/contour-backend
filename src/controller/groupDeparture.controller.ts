@@ -10,6 +10,7 @@ export async function createGroupDepartureHandler(req: Request<{}, {}, CreateGro
    
  
     const body = req.body;
+    console.log(body)
     const groupDeparture = await createGroupDeparture(body);
 
     return res.status(201).json({

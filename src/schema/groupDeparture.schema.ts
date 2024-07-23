@@ -18,11 +18,11 @@ const payload = {
       required_error: "Price is required",
     }),
 
-    totalQuantity: number({
+    totalQuantity: string({
         required_error: "total quantity is required",
       }),
 
-      soldQuantity: number({
+      soldQuantity: string({
         required_error: "sold quantity is required",
       }),
   }),
@@ -31,7 +31,7 @@ const payload = {
 const params = {
   params: object({
     groupDepartureId: string({
-      required_error: "GroupDepartureId is required",
+      required_error: "groupDepartureId is required",
     }),
   }),
 };

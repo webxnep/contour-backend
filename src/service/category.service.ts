@@ -11,6 +11,11 @@ export async function findCategory(query: FilterQuery<CategoryDocument>, options
   return result;
 }
 
+export async function findManyCategory(query: FilterQuery<CategoryDocument>, options: QueryOptions = { lean: true }) {
+  const result = await CategoryModel.find(query, {}, options).populate("collections");
+  return result;
+}
+
 export async function findAndUpdateCategory(query: FilterQuery<CategoryDocument>, update: UpdateQuery<CategoryDocument>, options: QueryOptions) {
   return CategoryModel.findOneAndUpdate(query, update, options).populate("collections");
 }

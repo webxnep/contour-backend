@@ -10,8 +10,8 @@ export interface GroupDepartureInput {
     endDate: Date;
     price: string;
     previousPrice: string;
-    totalQuantity: number;
-    soldQuantity: number;
+    totalQuantity: string;
+    soldQuantity: string;
 }
 
 export interface GroupDepartureDocument extends GroupDepartureInput, mongoose.Document {
@@ -31,6 +31,8 @@ const GroupDepartureSchema = new mongoose.Schema(
         endDate: { type: String },
         price: { type: String },
         previousPrice: { type: String },
+        totalQuantity: { type: String, required: true },
+        soldQuantity: { type: String, required: true },
 
     },
     {

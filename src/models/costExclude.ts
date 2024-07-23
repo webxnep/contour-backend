@@ -8,6 +8,7 @@ export interface CostExcludeInput {
   title: string;
   description: string;
   expedition: ExpeditionDocument["_id"];
+  slug?: string;
 }
 
 export interface CostExcludeDocument extends CostExcludeInput, mongoose.Document {
@@ -25,6 +26,7 @@ const costExcludeSchema = new mongoose.Schema(
     },
     title: { type: String, required: true },
     description: { type: String, required: true },
+    slug: { type: String },
     expedition: { type: mongoose.Schema.Types.ObjectId, ref: "Expedition" },
   },
   {

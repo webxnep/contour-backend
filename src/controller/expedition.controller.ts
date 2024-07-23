@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import AppError from "../utils/appError";
 import { uploadSingleFile } from "../middleware/uploadSingleFile";
 import { CreateExpeditionInput, findExpeditionFromCategoryInput, findExpeditionFromCollectionInput, ReadExpeditionInput, UpdateExpeditionInput } from "../schema/expedition.schema";
-import { createExpedition, findExpedition, findAndUpdateExpedition, deleteExpedition, findAllExpedition, findAllExpeditionByType, findAllExpeditionByMeter, findAllUpcomingExpedition, findAllUpcomingTrekking } from "../service/expedition.service";
+import { createExpedition, findExpedition, findAndUpdateExpedition, deleteExpedition, findAllExpedition, findAllExpeditionByType, findAllExpeditionByMeter, findAllUpcomingExpedition, findAllUpcomingTrekking, findManyExpedition } from "../service/expedition.service";
 import ExpeditionModel from "../models/expedition";
 var colors = require("colors");
 
@@ -24,7 +24,8 @@ export async function createExpeditionHandler(req: Request<{}, {}, CreateExpedit
    
 
     const body = req.body;
-    const expedition = await createExpedition({ ...body, banner: img1, routeMap: img2 });
+    console.log(body)
+    const expedition = await createExpedition({ ...body});
     return res.json({
       status: "success",
       msg: "Create success",
@@ -61,7 +62,7 @@ export async function updateExpeditionHandler(req: Request<UpdateExpeditionInput
 
     const updatedExpedition = await findAndUpdateExpedition(
       { expeditionId },
-      { ...req.body, banner: img1, routeMap: img2 },
+      { ...req.body },
       {
         new: true,
       }
@@ -253,7 +254,7 @@ export async function getExpeditionFromCollectionHandler(req: Request<findExpedi
 export async function getExpeditionFromCategoryHandler(req: Request<findExpeditionFromCategoryInput["params"]>, res: Response, next: NextFunction) {
   try {
     const categoryId = req.params.categoryId;
-    const expedition = await findExpedition({ category:{$eq:categoryId} });
+    const expedition = await findManyExpedition({ category:{$eq:categoryId} });
 
     if (!expedition) {
       next(new AppError("expedition does not exist", 404));

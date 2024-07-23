@@ -7,6 +7,7 @@ export interface CollectionInput {
   name: string;
   image?: string;
   description?: string;
+  slug?: string;
 }
 
 export interface CollectionDocument extends CollectionInput, mongoose.Document {
@@ -24,6 +25,7 @@ const CollectionSchema = new mongoose.Schema(
     },
     name: { type: String, required: true },
     image: { type: String},
+    slug: { type: String},
     description: { type: String},
   },
   {

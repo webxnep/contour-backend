@@ -11,6 +11,11 @@ export async function findExpedition(query: FilterQuery<ExpeditionDocument>, opt
   return result;
 }
 
+export async function findManyExpedition(query: FilterQuery<ExpeditionDocument>, options: QueryOptions = { lean: true }) {
+  const result = await ExpeditionModel.find(query, {}, options).populate("category").populate("collections");
+  return result;
+}
+
 export async function findAndUpdateExpedition(query: FilterQuery<ExpeditionDocument>, update: UpdateQuery<ExpeditionDocument>, options: QueryOptions) {
   return ExpeditionModel.findOneAndUpdate(query, update, options).populate("collections").populate("category");
 }

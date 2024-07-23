@@ -9,23 +9,24 @@ const router = express.Router();
 
 router.post(
   "/",
-  
-  
+  // [
+  //   requireAdmin,
+   
+  // ],
   createPrivateDepartureHandler
 );
 
 router.patch(
   "/:privateDepartureId",
-  [
-    requireAdmin,
-   
-  ],
+  // [
+  //    requireAdmin,
+  // ],
   updatePrivateDepartureHandler
 );
-router.get("/:privateDepartureId", [validate(getPrivateDepartureSchema)], getPrivateDepartureHandler);
 
+router.get("/:privateDepartureId", [validate(getPrivateDepartureSchema)], getPrivateDepartureHandler);
 router.get("/", getAllPrivateDepartureHandler);
-router.delete("/:privateDepartureId", [validate(deletePrivateDepartureSchema), requireAdmin], deletePrivateDepartureHandler);
+router.delete("/:privateDepartureId", [validate(deletePrivateDepartureSchema)], deletePrivateDepartureHandler);
 
 
 export default router;

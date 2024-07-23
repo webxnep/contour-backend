@@ -10,6 +10,8 @@ const payload = {
     
     description: string().optional(),
 
+    slug: string().optional(),
+
     collections: string({
       required_error: "collections is required",
     }),

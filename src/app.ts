@@ -23,10 +23,13 @@ import activityMediaRoute from "../src/routes/activityMedia.route";
 import blogRoute from "../src/routes/blog.route";
 import statRoute from "../src/routes/stats.route";
 import mailRoute from "../src/routes/mail.route";
+import mediaRoute from "../src/routes/media.route";
+import groupDepartureRoute from "../src/routes/groupDeparture.route";
+import privateDepartureRoute from "../src/routes/privateDeparture.route";
 
 const app = express();
 // const port = process.env.PORT;
-const port = 5008;
+const port = 5015;
 
 // Middleware
 
@@ -63,6 +66,9 @@ app.use("/api/activity-medias", activityMediaRoute);
 app.use("/api/blogs", blogRoute);
 app.use("/api/stats", statRoute);
 app.use("/api/mails", mailRoute);
+app.use("/api/medias", mediaRoute);
+app.use("/api/groupDeparture", groupDepartureRoute);
+app.use("/api/privateDeparture", privateDepartureRoute);
 
 // Testing
 app.get("/healthChecker", (req: Request, res: Response, next: NextFunction) => {

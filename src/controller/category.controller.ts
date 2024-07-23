@@ -1,17 +1,17 @@
 import { NextFunction, Request, Response } from "express";
 import AppError from "../utils/appError";
 import { CreateCategoryInput, ReadCategoryFromCollectionInput, UpdateCategoryInput } from "../schema/category.schema";
-import { createCategory, deleteCategory, findAllCategory, findAndUpdateCategory, findCategory } from "../service/category.service";
+import { createCategory, deleteCategory, findAllCategory, findAndUpdateCategory, findCategory, findManyCategory } from "../service/category.service";
 import { uploadSingleFile } from "../middleware/uploadSingleFile";
 var colors = require("colors");
 
 export async function createCategoryHandler(req: Request<{}, {}, CreateCategoryInput["body"]>, res: Response, next: NextFunction) {
   try {
-    const image = req.file;
+    // const image = req.file;
 
-    const url = await uploadSingleFile(image);
+    // const url = await uploadSingleFile(image);
     const body = req.body;
-    const category = await createCategory({ ...body, image: url });
+    const category = await createCategory({ ...body});
 
     return res.status(201).json({
       status: "success",
@@ -43,7 +43,7 @@ export async function updateCategoryHandler(req: Request<UpdateCategoryInput["pa
 
     const updatedCategory = await findAndUpdateCategory(
       { categoryId },
-      { ...req.body, image: img1 },
+      { ...req.body },
       {
         new: true,
       }
@@ -119,7 +119,7 @@ export async function getAllCategoryHandler(req: Request, res: Response, next: N
 export async function getCategoryFromCollectionHandler(req: Request<ReadCategoryFromCollectionInput["params"]>, res: Response, next: NextFunction) {
   try {
     const collectionId = req.params.collectionId;
-    const expedition = await findCategory({ collections:{$eq:collectionId} });
+    const expedition = await findManyCategory({ collections:{$eq:collectionId} });
 
     if (!expedition) {
       next(new AppError("expedition does not exist", 404));

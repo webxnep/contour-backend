@@ -2,7 +2,7 @@ import { object, string, TypeOf, any, unknown } from "zod";
 
 const payload = {
   body: object({
-    media: unknown(),
+    media: string(),
     expedition: string({
       required_error: "expedition is required",
     }),

@@ -2,18 +2,20 @@ import { NextFunction, Request, Response } from "express";
 import AppError from "../utils/appError";
 import { CreateMediaInput, UpdateMediaInput } from "../schema/media.schema";
 import { uploadSingleFile } from "../middleware/uploadSingleFile";
-import { createMedia, findMedia, findMediaByExpedition, deleteMedia } from "../service/media.service";
+import { createMedia, findMedia, findMediaByExpedition, deleteMedia, findAndUpdateMedia } from "../service/media.service";
 
 var colors = require("colors");
 
 export async function createMediaHandler(req: Request<{}, {}, CreateMediaInput["body"]>, res: Response, next: NextFunction) {
   try {
     const image = req.file;
-
-    const url = await uploadSingleFile(image);
+let url="";
+  if(image){
+    url = await uploadSingleFile(image);
+  }
     console.log(url);
     const body = req.body;
-    const category = await createMedia({ ...body, media: url });
+    const category = await createMedia(body);
 
     return res.status(201).json({
       status: "success",
@@ -79,6 +81,43 @@ export async function deleteMediaHandler(req: Request<UpdateMediaInput["params"]
     });
   } catch (error: any) {
     console.error(colors.red("msg:", error.message));
+    next(new AppError("Internal server error", 500));
+  }
+}
+
+
+export async function updateMediaHandler(req: Request<UpdateMediaInput["params"]>, res: Response, next: NextFunction) {
+  try {
+    const image = req.file;
+
+    const mediaId = req.params.mediaId;
+    const media = await findMedia({ mediaId });
+
+    if (!media) {
+      next(new AppError("Media does not exist", 404));
+      return;
+    }
+
+    let img1;
+    if (image) {
+      img1 = await uploadSingleFile(image);
+    }
+
+    const updatedMedia= await findAndUpdateMedia(
+      {mediaId },
+      { ...req.body },
+      {
+        new: true,
+      }
+    );
+
+    return res.json({
+      status: "success",
+      msg: "Update success",
+      data: updatedMedia,
+    });
+  } catch (error: any) {
+    console.error("Error:", error.message);
     next(new AppError("Internal server error", 500));
   }
 }

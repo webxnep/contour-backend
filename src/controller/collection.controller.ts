@@ -7,6 +7,7 @@ var colors = require("colors");
 
 export async function createCollectionHandler(req: Request<{}, {}, CreateCollectionInput["body"]>, res: Response, next: NextFunction) {
   try {
+    console.log(req.body);
     const image = req.file;
 
     let img1;
@@ -15,7 +16,7 @@ export async function createCollectionHandler(req: Request<{}, {}, CreateCollect
     }
  
     const body = req.body;
-    const collection = await createCollection({ ...body, image: img1 });
+    const collection = await createCollection({ ...body});
 
     return res.status(201).json({
       status: "success",
@@ -46,14 +47,17 @@ export async function updateCollectionHandler(req: Request<UpdateCollectionInput
       img1 = await uploadSingleFile(image);
     }
 
+    console.log(req.body)
     const updatedCollection = await findAndUpdateCollection(
       { collectionId },
-      { ...req.body, image: img1 },
+      { ...req.body },
       {
         new: true,
       }
     );
 
+
+    console.log(updatedCollection)
     return res.json({
       status: "success",
       msg: "Update success",

@@ -66,6 +66,7 @@ export async function getCostIncludeHandler(req: Request<UpdateCostIncludeInput[
 export async function getCostIncludeByExpeditionHandler(req: Request<UpdateCostIncludeInput["params"]>, res: Response, next: NextFunction) {
   try {
     const expeditionId = req.params.costIncludeId;
+    console.log(expeditionId)
     const results = await findCostIncludeByExpedition({ expedition: expeditionId });
 
     return res.json({

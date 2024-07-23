@@ -22,7 +22,7 @@ router.post(
 router.patch(
   "/:expeditionId",
   [
-    requireAdmin,
+    //requireAdmin,
     upload.fields([
       { name: "banner", maxCount: 1 },
       { name: "routeMap", maxCount: 1 },
@@ -34,7 +34,7 @@ router.get("/:expeditionId", [validate(getExpeditionSchema)], getExpeditionHandl
 router.get("/category/:categoryId", [validate(getExpeditionFromCategorySchema)], getExpeditionFromCategoryHandler);
 router.get("/collection/:collectionId", [validate(getExpeditionFromCollectionSchema)], getExpeditionFromCollectionHandler);
 router.get("/", getAllExpeditionHandler);
-router.delete("/:expeditionId", [validate(deleteExpeditionSchema), requireAdmin], deleteExpeditionHandler);
+router.delete("/:expeditionId", [validate(deleteExpeditionSchema)], deleteExpeditionHandler);
 router.get("/by-type/:expeditionId", getAllExpeditionByTypeHandler);
 router.get("/by-meter/:meter", getAllExpeditionByMeterHandler);
 router.get("/by-season-type/:season", getAllExpeditionBySeasonTypeHandler);
