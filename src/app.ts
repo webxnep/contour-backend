@@ -74,7 +74,7 @@ app.use("/api/privateDeparture", privateDepartureRoute);
 app.get("/healthChecker", (req: Request, res: Response, next: NextFunction) => {
   res.status(200).json({
     status: "success",
-    message: "Welcome to epeak Server.",
+    message: "Welcome to contor Server.",
   });
 });
 
