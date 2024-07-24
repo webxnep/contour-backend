@@ -12,6 +12,6 @@ router.patch("/:categoryId", [ upload.single("image")], updateCategoryHandler);
 router.get("/:categoryId", [ validate(getCategorySchema)], getCategoryHandler);
 router.get("/collection/:collectionId", [ validate(getCategoryFromCollectionSchema)], getCategoryFromCollectionHandler);
 router.get("/",  getAllCategoryHandler);
-router.delete("/:categoryId", [ validate(deleteCategorySchema),requireAdmin], deleteCategoryHandler);
+router.delete("/:categoryId", [ validate(deleteCategorySchema)], deleteCategoryHandler);
 
 export default router;
