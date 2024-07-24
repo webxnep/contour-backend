@@ -29,7 +29,7 @@ import privateDepartureRoute from "../src/routes/privateDeparture.route";
 
 const app = express();
 // const port = process.env.PORT;
-const port = 5015;
+const port = 5017;
 
 // Middleware
 
@@ -39,7 +39,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://test.epeakexpedition.com", "http://test.epeakexpedition.com", "https://epeakexpedition.com","http://epeakexpedition.com", "https://www.epeakexpedition.com","http://www.epeakexpedition.com","https://epeaklanguage.vercel.app","http://epeaklanguage.vercel.app"],
+    origin: ["http://localhost:3000","http://localhost:3001", "https://test.epeakexpedition.com", "http://test.epeakexpedition.com", "https://epeakexpedition.com","http://epeakexpedition.com", "https://www.epeakexpedition.com","http://www.epeakexpedition.com","https://epeaklanguage.vercel.app","http://epeaklanguage.vercel.app"],
     credentials: true,
   })
 );

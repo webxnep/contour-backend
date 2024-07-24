@@ -8,18 +8,13 @@ const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz0123456789", 10);
 export interface BookingInput {
   fullName: string;
   email: string;
-  pName: string;
-  pEmail: string;
-  pCode: string;
-  pPhone: string;
-  pNationality: string;
-  pPassportNo: string;
-  pDob: string;
-  departureDate: string;
+
+  phone: string;
+
   expedition?: ExpeditionDocument["_id"];
-  noOfTravelers: number;
-  price: number;
-  tripDuration: number;
+  package?: string;
+
+
   notes?: string;
   status?: string;
   paymentStatus?: string;
@@ -41,22 +36,22 @@ const bookingSchema = new mongoose.Schema(
     },
     fullName: { type: String, required: true },
     email: { type: String, required: true },
-    pEmail: { type: String, required: true },
-    pName: { type: String, required: true },
-    pCode: { type: String, required: true },
-    pPhone: { type: String, required: true },
-    pNationality: { type: String, required: true },
-    pPassportNo: { type: String, required: true },
-    pDob: { type: String, required: true },
-    departureDate: { type: String, required: true },
+    // pCode: { type: String, required: true },
+    phone: { type: String, required: true },
+    // pNationality: { type: String, required: true },
+    // pPassportNo: { type: String, required: true },
+    // pDob: { type: String, required: true },
+    // departureDate: { type: String, required: true },
     noOfTravelers: { type: Number, required: true },
     price: { type: Number, required: true },
-    tripDuration: { type: Number, required: true },
-    notes: { type: String, required: false},
+    // tripDuration: { type: Number, required: true },
+    notes: { type: String },
+    package: { type: String },
+
     expedition: { type: mongoose.Schema.Types.ObjectId, ref: "Expedition" },
-    status: { type: String, enum:["active","canceled"],default:"active" },
-    paymentStatus: { type: String, enum:["unpaid","fullyPaid","partiallyPaid"],default:"unpaid" },
-    isSeen: { type: Boolean, required: true, default: false },
+    status: { type: String, enum: ["active", "canceled"], default: "active" },
+    // paymentStatus: { type: String, enum: ["unpaid", "fullyPaid", "partiallyPaid"], default: "unpaid" },
+    // isSeen: { type: Boolean, default: false },
   },
   {
     timestamps: true,
