@@ -10,5 +10,5 @@ router.patch("/:bookingId", updateBookingHandler);
 router.patch("/cancel/:bookingId", cancelBookingHandler);
 router.get("/:bookingId", [validate(getBookingSchema)], getBookingHandler);
 router.get("/", getAllBookingHandler);
-router.delete("/:bookingId", [validate(deleteBookingSchema),requireAdmin], deleteBookingHandler);
+router.delete("/:bookingId", [validate(deleteBookingSchema)], deleteBookingHandler);
 export default router;
