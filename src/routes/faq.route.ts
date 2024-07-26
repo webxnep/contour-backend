@@ -9,7 +9,7 @@ const router = express.Router();
 router.post("/", [ validate(createFaqSchema)], createFaqHandler);
 router.patch("/:faqId",  updateFaqHandler);
 router.get("/:faqId", [validate(getFaqSchema)], getFaqHandler);
-router.get("/by-expiditionId/:faqId", [validate(getFaqSchema)], getFaqByExpeditionHandler);
+router.get("/by-expiditionId/:expeditionId",  getFaqByExpeditionHandler);
 router.get("/", getAllFaqHandler);
 router.delete("/:faqId", [ validate(deleteFaqSchema)], deleteFaqHandler);
 
