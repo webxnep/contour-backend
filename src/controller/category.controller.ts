@@ -3,6 +3,7 @@ import AppError from "../utils/appError";
 import { CreateCategoryInput, ReadCategoryFromCollectionInput, UpdateCategoryInput } from "../schema/category.schema";
 import { createCategory, deleteCategory, findAllCategory, findAndUpdateCategory, findCategory, findManyCategory } from "../service/category.service";
 import { uploadSingleFile } from "../middleware/uploadSingleFile";
+
 var colors = require("colors");
 
 export async function createCategoryHandler(req: Request<{}, {}, CreateCategoryInput["body"]>, res: Response, next: NextFunction) {

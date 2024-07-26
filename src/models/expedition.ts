@@ -8,13 +8,21 @@ const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz0123456789", 10);
 export interface ExpeditionInput {
   name: string;
   heading?: string;
+  tripcode?:string;
+  overview?:string;
+  banner?: string;
+  collections: CollectionDocument["_id"];
+  category: CategoryDocument["_id"];
+  slug?: string;
+
+
   meter?: string;
   displayMeter?: string;
   winter?: string;
   autumn?: string;
   summer?: string;
   spring?: string;
-  banner?: string;
+  
 
   maxElevation?: string;
   walkingPerDay?: string;
@@ -34,10 +42,7 @@ export interface ExpeditionInput {
   type?: string;
   isUpcoming?: string;
   fixedDepartures?: boolean;
-  collections: CollectionDocument["_id"];
-  category: CategoryDocument["_id"];
-
-  slug?: string;
+ 
 }
 
 export interface ExpeditionDocument extends ExpeditionInput, mongoose.Document {
