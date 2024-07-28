@@ -9,7 +9,7 @@ const router = express.Router();
 router.post("/", [ validate(createValueAdditionSchema)], createValueAdditionHandler);
 router.patch("/:valueAdditionId",  updateValueAdditionHandler);
 router.get("/:valueAdditionId", [validate(getValueAdditionSchema)], getValueAdditionHandler);
-router.get("/by-expiditionId/:valueAdditionId", getValueAdditionByExpeditionHandler);
+router.get("/by-expiditionId/:expeditionId", getValueAdditionByExpeditionHandler);
 router.get("/", getAllValueAdditionHandler);
 router.delete("/:valueAdditionId", [ validate(deleteValueAdditionSchema)], deleteValueAdditionHandler);
 
