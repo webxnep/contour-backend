@@ -7,7 +7,9 @@ const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz0123456789", 10);
 export interface IternaryInput {
   day: string;
   title: string;
-  description: string;
+  description?: string;
+  shortDescription?:string;
+  images?:string[]
   expedition: ExpeditionDocument["_id"];
 }
 
@@ -26,7 +28,9 @@ const iternarySchema = new mongoose.Schema(
     },
     day: { type: String, required: true },
     title: { type: String, required: true },
-    description: { type: String, required: true },
+    description: { type: String },
+    shortDescription: { type: String },
+    images: { type: Array(String) },
     expedition: { type: mongoose.Schema.Types.ObjectId, ref: "Expedition" },
   },
   {
