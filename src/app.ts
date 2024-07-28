@@ -28,6 +28,7 @@ import groupDepartureRoute from "../src/routes/groupDeparture.route";
 import privateDepartureRoute from "../src/routes/privateDeparture.route";
 import faqRoute from "../src/routes/faq.route";
 import factRoute from "../src/routes/fact.route";
+import valueAdditionRoute from "../src/routes/valueAddition.route";
 
 const app = express();
 // const port = process.env.PORT;
@@ -73,7 +74,7 @@ app.use("/api/groupDeparture", groupDepartureRoute);
 app.use("/api/privateDeparture", privateDepartureRoute);
 app.use("/api/faq", faqRoute);
 app.use("/api/fact", factRoute);
-
+app.use("/api/valueAddition", valueAdditionRoute);
 // Testing
 app.get("/healthChecker", (req: Request, res: Response, next: NextFunction) => {
   res.status(200).json({

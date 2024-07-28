@@ -23,29 +23,29 @@ const payload = {
 const params = {
   params: object({
     valueAdditionId: string({
-      required_error: "costExcludeId is required",
+      required_error: "valueAdditionId is required",
     }),
   }),
 };
 
-export const createCostExcludeSchema = object({
+export const createValueAdditionSchema = object({
   ...payload,
 });
 
-export const updateCostExcludeSchema = object({
+export const updateValueAdditionSchema = object({
   ...payload,
   ...params,
 });
 
-export const deleteCostExcludeSchema = object({
+export const deleteValueAdditionSchema = object({
   ...params,
 });
 
-export const getCostExcludeSchema = object({
+export const getValueAdditionSchema = object({
   ...params,
 });
 
-export type CreateCostExcludeInput = TypeOf<typeof createCostExcludeSchema>;
-export type UpdateCostExcludeInput = TypeOf<typeof updateCostExcludeSchema>;
-export type ReadCostExcludeInput = TypeOf<typeof getCostExcludeSchema>;
-export type DeleteCostExcludeInput = TypeOf<typeof deleteCostExcludeSchema>;
+export type CreateValueAdditionInput = TypeOf<typeof createValueAdditionSchema>;
+export type UpdateValueAdditionInput = TypeOf<typeof updateValueAdditionSchema>;
+export type ReadValueAdditionInput = TypeOf<typeof getValueAdditionSchema>;
+export type DeleteValueAdditionInput = TypeOf<typeof deleteValueAdditionSchema>;
