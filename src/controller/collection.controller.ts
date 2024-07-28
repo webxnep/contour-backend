@@ -112,7 +112,12 @@ export async function deleteCollectionHandler(req: Request<UpdateCollectionInput
 
 export async function getAllCollectionHandler(req: Request, res: Response, next: NextFunction) {
   try {
-    const results = await findAllCollection();
+    const { filter, sortBy, order, select } = req.body;
+    const sortOptions: any = {};
+    if (sortBy && order) {
+      sortOptions[sortBy] = order === 'asc' ? 1 : -1;
+    }
+    const results = await findAllCollection(select||'', filter, sortOptions);
     return res.json({
       status: "success",
       msg: "Get all collections success",
