@@ -19,7 +19,15 @@ export async function deleteCollection(query: FilterQuery<CollectionDocument>) {
   return CollectionModel.deleteOne(query);
 }
 
-export async function findAllCollection() {
-  const result = await CollectionModel.find().sort({ createdAt: -1 }); 
-  return result;
+export async function findAllCollection(select: string, filter: any = {}, sortOptions: any = {}) {
+  try {
+    console.log(filter,select,sortOptions)
+    const result = await CollectionModel.find(filter)
+      .select(select) 
+      .sort(sortOptions)
+      .exec();
+    return result;
+  } catch (error:any) {
+    throw new Error('Error fetching collections: ' + error.message);
+  }
 }
