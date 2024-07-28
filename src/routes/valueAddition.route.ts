@@ -1,16 +1,16 @@
 import express from "express";
 import { requireAdmin } from "../middleware/requireAdmin";
 import { validate } from "../middleware/validateResource";
-import { createCostExcludeHandler, updateCostExcludeHandler, getCostExcludeHandler, getAllCostExcludeHandler, deleteCostExcludeHandler, getCostExcludeByExpeditionHandler } from "../controller/costExclude.controller";
-import { createCostExcludeSchema, getCostExcludeSchema, deleteCostExcludeSchema } from "../schema/costExclude";
+import { createValueAdditionHandler, updateValueAdditionHandler, getValueAdditionHandler, getAllValueAdditionHandler, deleteValueAdditionHandler, getValueAdditionByExpeditionHandler } from "../controller/valueAddition.controller";
+import { createValueAdditionSchema, getValueAdditionSchema, deleteValueAdditionSchema } from "../schema/valueAddition.schema";
 
 const router = express.Router();
 
-router.post("/", [ validate(createCostExcludeSchema)], createCostExcludeHandler);
-router.patch("/:costExcludeId",  updateCostExcludeHandler);
-router.get("/:costExcludeId", [validate(getCostExcludeSchema)], getCostExcludeHandler);
-router.get("/by-expiditionId/:costExcludeId", getCostExcludeByExpeditionHandler);
-router.get("/", getAllCostExcludeHandler);
-router.delete("/:costExcludeId", [ validate(deleteCostExcludeSchema)], deleteCostExcludeHandler);
+router.post("/", [ validate(createValueAdditionSchema)], createValueAdditionHandler);
+router.patch("/:valueAdditionId",  updateValueAdditionHandler);
+router.get("/:valueAdditionId", [validate(getValueAdditionSchema)], getValueAdditionHandler);
+router.get("/by-expiditionId/:expeditionId", getValueAdditionByExpeditionHandler);
+router.get("/", getAllValueAdditionHandler);
+router.delete("/:valueAdditionId", [ validate(deleteValueAdditionSchema)], deleteValueAdditionHandler);
 
 export default router;

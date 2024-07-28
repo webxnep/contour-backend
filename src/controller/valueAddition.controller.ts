@@ -86,7 +86,7 @@ export async function deleteValueAdditionHandler(req: Request<UpdateValueAdditio
     const valueAddition = await findValueAddition({ valueAdditionId });
 
     if (!valueAddition) {
-      next(new AppError("calueAddition does not exist", 404));
+      next(new AppError("valueAddition does not exist", 404));
     }
 
     await deleteValueAddition({ valueAdditionId });
@@ -101,12 +101,12 @@ export async function deleteValueAdditionHandler(req: Request<UpdateValueAdditio
   }
 }
 
-export async function getAllCalueAdditionHandler(req: Request, res: Response, next: NextFunction) {
+export async function getAllValueAdditionHandler(req: Request, res: Response, next: NextFunction) {
   try {
     const results = await findAllValueAddition();
     return res.json({
       status: "success",
-      msg: "Get all cost Exclude success",
+      msg: "Get all value addition success",
       data: results,
     });
   } catch (error: any) {
