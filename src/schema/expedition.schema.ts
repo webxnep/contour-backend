@@ -8,20 +8,16 @@ const payload = {
     name: string({
       required_error: "Name is required",
     }),
-    heading: string({
-      required_error: "heading is required",
+    subheading: string({
+      required_error: "subheading is required",
     }),
 
-    meter: string({
-      required_error: "meter is required",
+    tripcode: string({
+      required_error: "tripcode is required",
     }),
 
-    country: string({
-      required_error: "country is required",
-    }),
-
-    displayMeter: string({
-      required_error: "displayMeter is required",
+    overview: string({
+      required_error: "overview is required",
     }),
 
     category: string({
@@ -31,57 +27,68 @@ const payload = {
     collections: string({
       required_error: "collections is required",
     }),
-    
-
-    winter: string().optional(),
-    autumn: string().optional(),
-    summer: string().optional(),
-    spring: string().optional(),
-
+    routeMap: any(),
     banner: any(),
 
-    maxElevation: string({
-      required_error: "maxElevation is required",
-    }),
-    walkingPerDay: string({
-      required_error: "walkingPerDay is required",
-    }),
-    accomodation: string({
-      required_error: "accomodation is required",
-    }),
-    bestSeason: string({
-      required_error: "bestSeason is required",
-    }),
-    groupSize: string({
-      required_error: "groupSize is required",
-    }),
 
-    description: string({
-      required_error: "description is required",
-    }),
-    duration: string({
-      required_error: "duration is required",
-    }),
-    activity: string({
-      required_error: "activity is required",
-    }),
-    physical: string({
-      required_error: "physical is required",
-    }),
+    // winter: string().optional(),
+    // autumn: string().optional(),
+    // summer: string().optional(),
+    // spring: string().optional(),
 
-    age: string({
-      required_error: "age is required",
-    }),
-    location: string({
-      required_error: "location is required",
-    }),
 
-    routeMap: any(),
+    // maxElevation: string({
+    //   required_error: "maxElevation is required",
+    // }),
+    // walkingPerDay: string({
+    //   required_error: "walkingPerDay is required",
+    // }),
+    // accomodation: string({
+    //   required_error: "accomodation is required",
+    // }),
+    // bestSeason: string({
+    //   required_error: "bestSeason is required",
+    // }),
+    // groupSize: string({
+    //   required_error: "groupSize is required",
+    // }),
+
+    // description: string({
+    //   required_error: "description is required",
+    // }),
+    // duration: string({
+    //   required_error: "duration is required",
+    // }),
+    // activity: string({
+    //   required_error: "activity is required",
+    // }),
+    // physical: string({
+    //   required_error: "physical is required",
+    // }),
+
+    // age: string({
+    //   required_error: "age is required",
+    // }),
+    // location: string({
+    //   required_error: "location is required",
+    // }),
+
+  // meter: string({
+    //   required_error: "meter is required",
+    // }),
+
+    // country: string({
+    //   required_error: "country is required",
+    // }),
+
+    // displayMeter: string({
+    //   required_error: "displayMeter is required",
+    // }),
     type: typeEnum,
 
-    isUpcoming: string({
-      required_error: "isUpcoming is required",
-    }),
+    // isUpcoming: string({
+    //   required_error: "isUpcoming is required",
+    // }),
   }),
 };
 
