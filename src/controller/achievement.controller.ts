@@ -1,12 +1,26 @@
 import { NextFunction, Request, Response } from "express";
 import AppError from "../utils/appError";
 import { uploadSingleFile } from "../middleware/uploadSingleFile";
-import { createAchievement, deleteAchievement, findAchievement, findAchievementByTeam, findAllAchievement, findAndUpdateAchievement } from "../service/achievement.service";
-import { CreateAchievementInput, UpdateAchievementInput } from "../schema/achievement.schema";
+import {
+  createAchievement,
+  deleteAchievement,
+  findAchievement,
+  findAchievementByTeam,
+  findAllAchievement,
+  findAndUpdateAchievement,
+} from "../service/achievement.service";
+import {
+  CreateAchievementInput,
+  UpdateAchievementInput,
+} from "../schema/achievement.schema";
 
 var colors = require("colors");
 
-export async function createAchievementHandler(req: Request<{}, {}, CreateAchievementInput["body"]>, res: Response, next: NextFunction) {
+export async function createAchievementHandler(
+  req: Request<{}, {}, CreateAchievementInput["body"]>,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const image = req.file;
     const url = await uploadSingleFile(image);
@@ -25,7 +39,11 @@ export async function createAchievementHandler(req: Request<{}, {}, CreateAchiev
   }
 }
 
-export async function updateAchievementHandler(req: Request<UpdateAchievementInput["params"]>, res: Response, next: NextFunction) {
+export async function updateAchievementHandler(
+  req: Request<UpdateAchievementInput["params"]>,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const image = req.file;
 
@@ -61,7 +79,11 @@ export async function updateAchievementHandler(req: Request<UpdateAchievementInp
   }
 }
 
-export async function getAchievementHandler(req: Request<UpdateAchievementInput["params"]>, res: Response, next: NextFunction) {
+export async function getAchievementHandler(
+  req: Request<UpdateAchievementInput["params"]>,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const achievementId = req.params.achievementId;
     const item = await findAchievement({ achievementId });
@@ -81,7 +103,11 @@ export async function getAchievementHandler(req: Request<UpdateAchievementInput[
   }
 }
 
-export async function deleteAchievementHandler(req: Request<UpdateAchievementInput["params"]>, res: Response, next: NextFunction) {
+export async function deleteAchievementHandler(
+  req: Request<UpdateAchievementInput["params"]>,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const achievementId = req.params.achievementId;
     const item = await findAchievement({ achievementId });
@@ -102,7 +128,11 @@ export async function deleteAchievementHandler(req: Request<UpdateAchievementInp
   }
 }
 
-export async function getAllAchievementHandler(req: Request, res: Response, next: NextFunction) {
+export async function getAllAchievementHandler(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const results = await findAllAchievement();
     return res.json({
@@ -116,8 +146,11 @@ export async function getAllAchievementHandler(req: Request, res: Response, next
   }
 }
 
-
-export async function getAllAchievementByTeamHandler(req: Request<UpdateAchievementInput["params"]>, res: Response, next: NextFunction) {
+export async function getAllAchievementByTeamHandler(
+  req: Request<UpdateAchievementInput["params"]>,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const teamId = req.params.achievementId;
     const iternarnaries = await findAchievementByTeam({ team: teamId });
