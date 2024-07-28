@@ -30,7 +30,7 @@ import privateDepartureRoute from "../src/routes/privateDeparture.route";
 import faqRoute from "../src/routes/faq.route";
 import factRoute from "../src/routes/fact.route";
 import valueAdditionRoute from "../src/routes/valueAddition.route";
-
+import tripAttractionRoute from "../src/routes/tripattraction.route";
 const app = express();
 // const port = process.env.PORT;
 const port = 5017;
@@ -77,6 +77,7 @@ app.use("/api/privateDeparture", privateDepartureRoute);
 app.use("/api/faq", faqRoute);
 app.use("/api/fact", factRoute);
 app.use("/api/valueAddition", valueAdditionRoute);
+app.use("/api/tripAttraction", tripAttractionRoute);
 // Testing
 app.get("/healthChecker", (req: Request, res: Response, next: NextFunction) => {
   res.status(200).json({
