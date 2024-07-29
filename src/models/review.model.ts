@@ -8,6 +8,7 @@ export interface ReviewInput {
   message: string;
   rating: number;
   like: number;
+  isVerified?:boolean;
   user: UserDocument["_id"];
 }
 
@@ -27,6 +28,7 @@ const reviewSchema = new mongoose.Schema(
     message: { type: String, required: true },
     expedition: { type: String, required: true },
     rating: { type: Number, required: true },
+    isVerified: { type: Boolean, required: false,default:false },
     // guide: { type: String, required: true},
     like:{ type: Number, required: true},
     user: { type: String, required: true},
