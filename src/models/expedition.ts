@@ -41,7 +41,7 @@ export interface ExpeditionInput {
 
   // type?: string;
   // isUpcoming?: string;
-  // fixedDepartures?: boolean;
+   isUpcoming?: boolean;
  
 }
 
@@ -90,7 +90,7 @@ const expeditionSchema = new mongoose.Schema(
     // displayMeter: { type: String },
    
     // isUpcoming: { type: String, default: "no" },
-    // fixedDepartures: { type: Boolean, default: false },
+    isUpcoming: { type: Boolean, default: false },
    
   },
   {
