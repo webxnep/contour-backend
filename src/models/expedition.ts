@@ -16,18 +16,23 @@ export interface ExpeditionInput {
   slug?: string;
   routeMap?: string;
   season?: string;
-   meter?: string;
    maxElevation?: string;
+   accomodation?: string;
+   duration?: string;
+   physical?: string;
+   activity?: string;
+   groupSize?: string;
   // walkingPerDay?: string;
-  // accomodation?: string;
+  // 
   // bestSeason?: string;
-  // groupSize?: string;
+  // 
 
   // description?: string;
-  // duration?: string;
+  // 
   // country?: string;
-  // activity?: string;
-  // physical?: string;
+  //
+
+  // 
   // age?: string;
   // location?: string;
 
@@ -63,16 +68,15 @@ const expeditionSchema = new mongoose.Schema(
     slug: { type: String },
     maxElevation: { type: String },
      duration: { type: String },
-     meter: { type: String },
-    // walkingPerDay: { type: String },
-    // accomodation: { type: String },
-    // bestSeason: { type: String },
-    // groupSize: { type: String },
-    // description: { type: String },
+    
    
-    // country: { type: String },
-    // activity: { type: String },
-    // physical: { type: String },
+   accomodation: { type: String },
+
+    groupSize: { type: String },
+    
+     activity: { type: String },
+     physical: { type: String },
+
     // age: { type: String },
     // location: { type: String },
     // routeMap: { type: String },
