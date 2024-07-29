@@ -5,12 +5,62 @@ import { ActivityDocument } from "./activity.model";
 
 const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz0123456789", 10);
 
+export interface emergency {
+  fullName: String;
+  contact: String;
+  relationship: String;
+}
+
+export const emergencyContactSchema = new mongoose.Schema({
+  fullName: String,
+  contact: String,
+  relationship: String,
+
+})
+
+export interface transportation {
+  method: String,
+  transportationCharge: Number,
+}
+
+export const transportationSchema = new mongoose.Schema({
+  method: String,
+  transportationCharge: Number,
+})
+
+export interface travelInsurance {
+  insurance: Boolean,
+  insuranceCharge: Number,
+}
+
+export const travelInsuranceSchema = new mongoose.Schema({
+  insurance: Boolean,
+  insuranceCharge: Number,
+})
+
+export interface price {
+  insurance: Boolean,
+  insuranceCharge: Number,
+}
+
+export const priceSchema = new mongoose.Schema({
+  insurance: Boolean,
+  insuranceCharge: Number,
+})
+
 export interface BookingInput {
   fullName: string;
   email: string;
-
   phone: string;
-
+  dob: Date;
+  gender: string;
+  departureDate: Date;
+  noOfAdults: number;
+  passportNo: string;
+  emergencyContact: emergency;
+  transportation: transportation;
+  travelInsurance:travelInsurance;
+  price:price;
   expedition?: ExpeditionDocument["_id"];
   package?: string;
 
