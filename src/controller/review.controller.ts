@@ -8,6 +8,7 @@ import {
   // findReviewByTeam,
   findAllReview,
   findAndUpdateReview,
+  findReviewByExpedition,
 } from "../service/review.service";
 import {
   CreateReviewInput,
@@ -157,3 +158,20 @@ export async function getAllReviewHandler(
 //     next(new AppError("Internal server error", 500));
 //   }
 // }
+
+
+export async function getReviewByExpeditionHandler(req: Request, res: Response, next: NextFunction) {
+  try {
+    const expeditionId = req.params.costExcludeId;
+    const results = await findReviewByExpedition({ expedition: expeditionId });
+
+    return res.json({
+      status: "success",
+      msg: "Get success",
+      data: results,
+    });
+  } catch (error: any) {
+    console.error(colors.red("msg:", error.message));
+    next(new AppError("Internal server error", 500));
+  }
+}

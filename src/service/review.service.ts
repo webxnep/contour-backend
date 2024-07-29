@@ -25,6 +25,10 @@ export async function findAllReview() {
   return result;
 }
 
+export async function findReviewByExpedition(query: FilterQuery<Review>, options: QueryOptions = { lean: true }) {
+  const result = await ReviewModel.find(query, {}, options);
+  return result;
+}
 
 
 // export async function findReviewByTeam(query: FilterQuery<Review>, options: QueryOptions = { lean: true }) {

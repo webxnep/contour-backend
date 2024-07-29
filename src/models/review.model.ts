@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { customAlphabet } from "nanoid";
 import { UserDocument } from "./user.model";
+import { ExpeditionDocument } from "./expedition";
 
 const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz0123456789", 10);
 
@@ -10,6 +11,7 @@ export interface ReviewInput {
   like: number;
   isVerified?:boolean;
   user: UserDocument["_id"];
+  expedition: ExpeditionDocument["_id"];
 }
 
 export interface Review extends ReviewInput, mongoose.Document {
@@ -26,7 +28,8 @@ const reviewSchema = new mongoose.Schema(
       default: () => `review_${nanoid()}`,
     },
     message: { type: String, required: true },
-    expedition: { type: String, required: true },
+    expedition: { type: mongoose.Schema.Types.ObjectId, ref: "Expedition" },
+   
     rating: { type: Number, required: true },
     isVerified: { type: Boolean, required: false,default:false },
     // guide: { type: String, required: true},
