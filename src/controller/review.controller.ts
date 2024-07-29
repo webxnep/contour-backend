@@ -162,7 +162,7 @@ export async function getAllReviewHandler(
 
 export async function getReviewByExpeditionHandler(req: Request, res: Response, next: NextFunction) {
   try {
-    const expeditionId = req.params.costExcludeId;
+    const expeditionId = req.params.expeditionId;
     const results = await findReviewByExpedition({ expedition: expeditionId });
 
     return res.json({
