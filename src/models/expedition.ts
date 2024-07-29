@@ -8,23 +8,16 @@ const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz0123456789", 10);
 export interface ExpeditionInput {
   name: string;
   subheading?: string;
-  tripcode?:string;
-  overview?:string;
+  tripcode?: string;
+  overview?: string;
   banner?: string;
   collections: CollectionDocument["_id"];
   category: CategoryDocument["_id"];
   slug?: string;
   routeMap?: string;
-
-  // meter?: string;
-  // displayMeter?: string;
-  // winter?: string;
-  // autumn?: string;
-  // summer?: string;
-  // spring?: string;
-  
-
-  // maxElevation?: string;
+  season?: string;
+   meter?: string;
+   maxElevation?: string;
   // walkingPerDay?: string;
   // accomodation?: string;
   // bestSeason?: string;
@@ -41,8 +34,8 @@ export interface ExpeditionInput {
 
   // type?: string;
   // isUpcoming?: string;
-   isUpcoming?: boolean;
-   isBestseller?: boolean;
+  isUpcoming?: boolean;
+  isBestseller?: boolean;
 }
 
 export interface ExpeditionDocument extends ExpeditionInput, mongoose.Document {
@@ -62,23 +55,21 @@ const expeditionSchema = new mongoose.Schema(
     subheading: { type: String },
     tripcode: { type: String },
     overview: { type: String },
+    season: { type: String },
     category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
     collections: { type: mongoose.Schema.Types.ObjectId, ref: "Collections" },
     banner: { type: String },
     routeMap: { type: String },
     slug: { type: String },
-    
-    // winter: { type: String },
-    // autumn: { type: String },
-    // summer: { type: String },
-    // spring: { type: String },
-    // maxElevation: { type: String },
+    maxElevation: { type: String },
+     duration: { type: String },
+     meter: { type: String },
     // walkingPerDay: { type: String },
     // accomodation: { type: String },
     // bestSeason: { type: String },
     // groupSize: { type: String },
     // description: { type: String },
-    // duration: { type: String },
+   
     // country: { type: String },
     // activity: { type: String },
     // physical: { type: String },
@@ -86,10 +77,8 @@ const expeditionSchema = new mongoose.Schema(
     // location: { type: String },
     // routeMap: { type: String },
     // type: { type: String },
-    // meter: { type: String },
     // displayMeter: { type: String },
-   
-    // isUpcoming: { type: String, default: "no" },
+
     isUpcoming: { type: Boolean, default: false },
     isBestseller: { type: Boolean, default: false },
   },
