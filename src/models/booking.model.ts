@@ -52,15 +52,15 @@ export interface BookingInput {
   fullName: string;
   email: string;
   phone: string;
-  dob: Date;
-  gender: string;
-  departureDate: Date;
-  noOfAdults: number;
-  passportNo: string;
-  emergencyContact: emergency;
-  transportation: transportation;
-  travelInsurance:travelInsurance;
-  price:price;
+  // dob: Date;
+  // gender: string;
+  // departureDate: Date;
+  // noOfAdults: number;
+  // passportNo: string;
+  // emergencyContact: emergency;
+  // transportation: transportation;
+  // travelInsurance:travelInsurance;
+  // price:price;
   expedition?: ExpeditionDocument["_id"];
   package?: string;
 
