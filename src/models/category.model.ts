@@ -6,7 +6,7 @@ const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz0123456789", 10);
 
 export interface CategoryInput {
   name: string;
-  image?: string;
+  image?: string[];
   description?: string;
   collections: CollectionDocument["_id"];
   slug?: string;
@@ -26,7 +26,7 @@ const CategorySchema = new mongoose.Schema(
       default: () => `category_${nanoid()}`,
     },
     name: { type: String, required: true },
-    image: { type: String },
+    image:  { type: Array(String)},
     description: { type: String },
     slug: { type: String ,unique:true},
     collections: { type: mongoose.Schema.Types.ObjectId, ref: "Collections" },

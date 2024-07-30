@@ -5,7 +5,7 @@ const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz0123456789", 10);
 
 export interface CollectionInput {
   name: string;
-  image?: string;
+  image?: string[];
   description?: string;
   slug?: string;
 }
@@ -24,7 +24,7 @@ const CollectionSchema = new mongoose.Schema(
       default: () => `collection_${nanoid()}`,
     },
     name: { type: String, required: true },
-    image: { type: String},
+    image: { type: Array(String)},
     slug: { type: String,unique:true},
     description: { type: String},
   },
