@@ -103,7 +103,8 @@ export async function deleteTripAttractionHandler(req: Request<UpdateTripAttract
 
 export async function getAllTripAttractionHandler(req: Request, res: Response, next: NextFunction) {
   try {
-    const results = await findAllTripAttraction();
+    const filter = req.query;
+    const results = await findAllTripAttraction(filter);
     return res.json({
       status: "success",
       msg: "Get all trip attraction success",

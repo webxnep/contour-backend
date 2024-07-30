@@ -29,6 +29,18 @@ export async function findAllExpedition() {
   return result;
 }
 
+
+// export async function findAllExpeditionWithoutPopulate() {
+//   const result = await ExpeditionModel.find();
+//   return result;
+// }
+
+export async function findAllExpeditionWithoutPopulate(query: FilterQuery<ExpeditionDocument>, options: QueryOptions = { lean: true }) {
+  const result = await ExpeditionModel.find(query, {}, options)
+  console.log(result)
+  return result;
+}
+
 export async function findAllUpcomingExpedition() {
   const result = await ExpeditionModel.find({ isUpcoming: "yes", type: "expedition" });
   return result;

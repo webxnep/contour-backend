@@ -2,7 +2,7 @@ import express from "express";
 import { validate } from "../middleware/validateResource";
 import upload from "../middleware/multer";
 import { requireAdmin } from "../middleware/requireAdmin";
-import { createExpeditionHandler, updateExpeditionHandler, getExpeditionHandler, getAllExpeditionHandler, deleteExpeditionHandler, getAllExpeditionByTypeHandler, getAllExpeditionByMeterHandler, getAllExpeditionBySeasonTypeHandler, getExpeditionByObjectIdHandler, getAllUpcomingExpeditionHandler, getAllUpcomingTrekkingHandler, getExpeditionFromCategoryHandler, getExpeditionFromCollectionHandler } from "../controller/expedition.controller";
+import { createExpeditionHandler, updateExpeditionHandler, getExpeditionHandler, getAllExpeditionHandler, deleteExpeditionHandler, getAllExpeditionByTypeHandler, getAllExpeditionByMeterHandler, getAllExpeditionBySeasonTypeHandler, getExpeditionByObjectIdHandler, getAllUpcomingExpeditionHandler, getAllUpcomingTrekkingHandler, getExpeditionFromCategoryHandler, getExpeditionFromCollectionHandler, getAllExpeditionWithoutPopulateHandler } from "../controller/expedition.controller";
 import { getExpeditionSchema, deleteExpeditionSchema, createExpeditionSchema, getExpeditionFromCategorySchema, getExpeditionFromCollectionSchema } from "../schema/expedition.schema";
 
 const router = express.Router();
@@ -43,5 +43,8 @@ router.get("by-id/:expeditionId", [validate(getExpeditionSchema)], getExpedition
 router.get("/get-all/upcoming/expedition", getAllUpcomingExpeditionHandler);
 
 router.get("/get-all/upcoming/trekking", getAllUpcomingTrekkingHandler);
+
+// plane data without populate
+router.get("/get-all/plane-data-without-populate", getAllExpeditionWithoutPopulateHandler);
 
 export default router;
