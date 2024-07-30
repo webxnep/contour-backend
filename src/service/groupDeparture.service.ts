@@ -23,3 +23,8 @@ export async function findAllGroupDeparture() {
   const result = await GroupDepartureModel.find()
   return result;
 }
+
+export async function findGroupDepartureByExpedition(query: FilterQuery<GroupDepartureDocument>, options: QueryOptions = { lean: true }) {
+  const result = await GroupDepartureModel.find(query, {}, options);
+  return result;
+}

@@ -25,6 +25,9 @@ const payload = {
       soldQuantity: string({
         required_error: "sold quantity is required",
       }),
+      expedition: string({
+        required_error: "expedition is required",
+      }),
   }),
 };
 

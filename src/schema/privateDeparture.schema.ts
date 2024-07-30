@@ -17,6 +17,9 @@ const payload = {
     price: string({
       required_error: "Price is required",
     }),
+    expedition: string({
+      required_error: "expedition is required",
+    }),
   }),
 };
 

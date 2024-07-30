@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import AppError from "../utils/appError";
 import { CreateGroupDepartureInput,UpdateGroupDepartureInput } from "../schema/groupDeparture.schema";
-import { createGroupDeparture, deleteGroupDeparture, findAllGroupDeparture, findAndUpdateGroupDeparture, findGroupDeparture } from "../service/groupDeparture.service";
+import { createGroupDeparture, deleteGroupDeparture, findAllGroupDeparture, findAndUpdateGroupDeparture, findGroupDeparture, findGroupDepartureByExpedition } from "../service/groupDeparture.service";
 import { uploadSingleFile } from "../middleware/uploadSingleFile";
 var colors = require("colors");
 
@@ -104,6 +104,23 @@ export async function getAllGroupDepartureHandler(req: Request, res: Response, n
     return res.json({
       status: "success",
       msg: "Get all group departures success",
+      data: results,
+    });
+  } catch (error: any) {
+    console.error(colors.red("msg:", error.message));
+    next(new AppError("Internal server error", 500));
+  }
+}
+
+
+export async function getGroupDepartureByExpeditionHandler(req: Request, res: Response, next: NextFunction) {
+  try {
+    const expeditionId = req.params.expeditionId;
+    const results = await findGroupDepartureByExpedition({ expedition: expeditionId });
+
+    return res.json({
+      status: "success",
+      msg: "Get success",
       data: results,
     });
   } catch (error: any) {

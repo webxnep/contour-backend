@@ -23,3 +23,8 @@ export async function findAllPrivateDeparture() {
   const result = await PrivateDepartureModel.find()
   return result;
 }
+
+export async function findPrivateDepartureByExpedition(query: FilterQuery<PrivateDepartureDocument>, options: QueryOptions = { lean: true }) {
+  const result = await PrivateDepartureModel.find(query, {}, options);
+  return result;
+}

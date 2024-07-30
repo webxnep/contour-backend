@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { customAlphabet } from "nanoid";
 import { CollectionDocument } from "./collection.model";
 import { CategoryDocument } from "./category.model";
+import { ExpeditionDocument } from "./expedition";
 
 const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz0123456789", 10);
 
@@ -10,6 +11,7 @@ export interface PrivateDepartureInput {
   endDate: Date;
   price: string;
   previousPrice: string;
+  expedition: ExpeditionDocument["_id"];
 }
 
 export interface PrivateDepartureDocument extends PrivateDepartureInput, mongoose.Document {
@@ -29,6 +31,7 @@ const PrivateDepartureSchema = new mongoose.Schema(
     endDate: { type: String },
     price: { type: String },
     previousPrice: { type: String },
+    expedition: { type: mongoose.Schema.Types.ObjectId, ref: "Expedition" },
   },
   {
     timestamps: true,

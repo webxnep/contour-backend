@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import AppError from "../utils/appError";
 import { CreatePrivateDepartureInput,UpdatePrivateDepartureInput } from "../schema/privateDeparture.schema";
-import { createPrivateDeparture, deletePrivateDeparture, findAllPrivateDeparture, findAndUpdatePrivateDeparture, findPrivateDeparture } from "../service/privateDeparture.service";
+import { createPrivateDeparture, deletePrivateDeparture, findAllPrivateDeparture, findAndUpdatePrivateDeparture, findPrivateDeparture, findPrivateDepartureByExpedition } from "../service/privateDeparture.service";
 import { uploadSingleFile } from "../middleware/uploadSingleFile";
 var colors = require("colors");
 
@@ -103,6 +103,22 @@ export async function getAllPrivateDepartureHandler(req: Request, res: Response,
     return res.json({
       status: "success",
       msg: "Get all Private departures success",
+      data: results,
+    });
+  } catch (error: any) {
+    console.error(colors.red("msg:", error.message));
+    next(new AppError("Internal server error", 500));
+  }
+}
+
+export async function getPrivateDepartureByExpeditionHandler(req: Request, res: Response, next: NextFunction) {
+  try {
+    const expeditionId = req.params.expeditionId;
+    const results = await findPrivateDepartureByExpedition({ expedition: expeditionId });
+
+    return res.json({
+      status: "success",
+      msg: "Get success",
       data: results,
     });
   } catch (error: any) {
