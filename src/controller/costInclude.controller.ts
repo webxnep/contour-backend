@@ -103,7 +103,9 @@ export async function deleteCostIncludeHandler(req: Request<UpdateCostIncludeInp
 
 export async function getAllCostIncludeHandler(req: Request, res: Response, next: NextFunction) {
   try {
-    const results = await findAllCostInclude();
+    const filter = req.query;
+
+    const results = await findAllCostInclude(filter);
     return res.json({
       status: "success",
       msg: "Get all cost include success",

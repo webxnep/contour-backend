@@ -110,6 +110,28 @@ export async function deleteCollectionHandler(req: Request<UpdateCollectionInput
   }
 }
 
+// export async function getAllCollectionHandler(req: Request, res: Response, next: NextFunction) {
+//   try {
+//     const { filter, sortBy, order, select } = req.body;
+//     const sortOptions: any = {};
+//     if (sortBy && order) {
+//       sortOptions[sortBy] = order === 'asc' ? 1 : -1;
+//     }
+//     console.log(req.body)
+//     const results = await findAllCollection(select||'', filter, sortOptions);
+//     return res.json({
+//       status: "success",
+//       msg: "Get all collections success",
+//       data: results,
+//     });
+//   } catch (error: any) {
+//     console.error(colors.red("msg:", error.message));
+//     next(new AppError("Internal server error", 500));
+//   }
+// }
+
+
+
 export async function getAllCollectionHandler(req: Request, res: Response, next: NextFunction) {
   try {
     const { filter, sortBy, order, select } = req.body;
@@ -117,7 +139,9 @@ export async function getAllCollectionHandler(req: Request, res: Response, next:
     if (sortBy && order) {
       sortOptions[sortBy] = order === 'asc' ? 1 : -1;
     }
-    const results = await findAllCollection(select||'', filter, sortOptions);
+    console.log(req.body);
+    
+    const results = await findAllCollection(select || '', filter, sortOptions);
     return res.json({
       status: "success",
       msg: "Get all collections success",

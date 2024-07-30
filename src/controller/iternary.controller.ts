@@ -107,7 +107,10 @@ export async function deleteIternaryHandler(req: Request<UpdateIternaryInput["pa
 
 export async function getAllIternaryHandler(req: Request, res: Response, next: NextFunction) {
   try {
-    const results = await findAllIternary();
+    const filter = req.query;
+    console.log(filter);
+
+    const results = await findAllIternary(filter);
     return res.json({
       status: "success",
       msg: "Get all iternary success",

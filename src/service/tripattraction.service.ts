@@ -24,7 +24,14 @@ export async function deleteTripAttraction(query: FilterQuery<TripAttractionDocu
     return TripAttractionModel.deleteOne(query);
 }
 
-export async function findAllTripAttraction() {
-    const result = await TripAttractionModel.find().sort({ createdAt: -1 });
+// export async function findAllTripAttraction() {
+//     const result = await TripAttractionModel.find().sort({ createdAt: -1 });
+//     return result;
+// }
+
+
+
+export async function findAllTripAttraction(query: FilterQuery<TripAttractionDocument>, options: QueryOptions = { lean: true }) {
+    const result = await TripAttractionModel.find(query, {}, options).sort({ createdAt: -1 }); 
     return result;
 }

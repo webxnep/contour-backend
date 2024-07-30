@@ -2,14 +2,14 @@ import { NextFunction, Request, Response } from "express";
 import AppError from "../utils/appError";
 import { uploadSingleFile } from "../middleware/uploadSingleFile";
 import { CreateExpeditionInput, findExpeditionFromCategoryInput, findExpeditionFromCollectionInput, ReadExpeditionInput, UpdateExpeditionInput } from "../schema/expedition.schema";
-import { createExpedition, findExpedition, findAndUpdateExpedition, deleteExpedition, findAllExpedition, findAllExpeditionByType, findAllExpeditionByMeter, findAllUpcomingExpedition, findAllUpcomingTrekking, findManyExpedition } from "../service/expedition.service";
+import { createExpedition, findExpedition, findAndUpdateExpedition, deleteExpedition, findAllExpedition, findAllExpeditionByType, findAllExpeditionByMeter, findAllUpcomingExpedition, findAllUpcomingTrekking, findManyExpedition, findAllExpeditionWithoutPopulate } from "../service/expedition.service";
 import ExpeditionModel from "../models/expedition";
 var colors = require("colors");
 
 export async function createExpeditionHandler(req: Request<{}, {}, CreateExpeditionInput["body"]>, res: Response, next: NextFunction) {
   try {
     const { files } = req as { files: { [fieldname: string]: Express.Multer.File[] } };
-   
+
     let img1;
     if (files && files["banner"]) {
       const banner = files["banner"][0];
@@ -18,14 +18,11 @@ export async function createExpeditionHandler(req: Request<{}, {}, CreateExpedit
     let img2;
     if (files && files["routeMap"]) {
       const routeMap = files["routeMap"][0];
-      img2= await uploadSingleFile(routeMap);
+      img2 = await uploadSingleFile(routeMap);
     }
 
-   
-
     const body = req.body;
-    console.log(body)
-    const expedition = await createExpedition({ ...body});
+    const expedition = await createExpedition({ ...body });
     return res.json({
       status: "success",
       msg: "Create success",
@@ -154,6 +151,21 @@ export async function getAllExpeditionHandler(req: Request, res: Response, next:
   }
 }
 
+export async function getAllExpeditionWithoutPopulateHandler(req: Request, res: Response, next: NextFunction) {
+  try {
+    const filter = req.query; // Using query instead of body
+    console.log(filter ,"---------------------------------------------------------------------------------------");
+    const results = await findAllExpeditionWithoutPopulate(filter);
+    return res.json({
+      status: "success",
+      msg: "Get all success",
+      data: results,
+    });
+  } catch (error: any) {
+    console.error(colors.red("msg:", error.message));
+    next(new AppError("Internal server error", 500));
+  }
+}
 
 export async function getAllUpcomingExpeditionHandler(req: Request, res: Response, next: NextFunction) {
   try {
@@ -230,11 +242,10 @@ export async function getAllExpeditionBySeasonTypeHandler(req: Request, res: Res
   }
 }
 
-
 export async function getExpeditionFromCollectionHandler(req: Request<findExpeditionFromCollectionInput["params"]>, res: Response, next: NextFunction) {
   try {
     const collectionId = req.params.collectionId;
-    const expedition = await findExpedition({ collections:{$eq:collectionId}});
+    const expedition = await findExpedition({ collections: { $eq: collectionId } });
 
     if (!expedition) {
       next(new AppError("expedition does not exist", 404));
@@ -254,7 +265,7 @@ export async function getExpeditionFromCollectionHandler(req: Request<findExpedi
 export async function getExpeditionFromCategoryHandler(req: Request<findExpeditionFromCategoryInput["params"]>, res: Response, next: NextFunction) {
   try {
     const categoryId = req.params.categoryId;
-    const expedition = await findManyExpedition({ category:{$eq:categoryId} });
+    const expedition = await findManyExpedition({ category: { $eq: categoryId } });
 
     if (!expedition) {
       next(new AppError("expedition does not exist", 404));

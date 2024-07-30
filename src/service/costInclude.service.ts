@@ -24,7 +24,12 @@ export async function deleteCostInclude(query: FilterQuery<CostIncludeDocument>)
   return CostIncludeModel.deleteOne(query);
 }
 
-export async function findAllCostInclude() {
-  const result = await CostIncludeModel.find().sort({ createdAt: -1 }); 
+// export async function findAllCostInclude() {
+//   const result = await CostIncludeModel.find().sort({ createdAt: -1 });
+//   return result;
+// }
+
+export async function findAllCostInclude(query: FilterQuery<CostIncludeDocument>, options: QueryOptions = { lean: true }) {
+  const result = await CostIncludeModel.find(query, {}, options).sort({ createdAt: -1 });
   return result;
 }

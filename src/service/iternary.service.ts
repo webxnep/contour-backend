@@ -24,7 +24,12 @@ export async function deleteIternary(query: FilterQuery<IternaryDocument>) {
   return IternaryModel.deleteOne(query);
 }
 
-export async function findAllIternary() {
-  const result = await IternaryModel.find().sort({ createdAt: -1 }); 
+// export async function findAllExpeditionWithoutPopulate(query: FilterQuery<ExpeditionDocument>, options: QueryOptions = { lean: true }) {
+//   const result = await ExpeditionModel.find(query, {}, options)
+//   return result;
+// }
+
+export async function findAllIternary(query: FilterQuery<IternaryDocument>, options: QueryOptions = { lean: true }) {
+  const result = await IternaryModel.find(query, {}, options).sort({ createdAt: -1 }); 
   return result;
 }
