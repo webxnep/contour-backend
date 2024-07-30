@@ -39,9 +39,7 @@ const payload = {
       required_error: "No of travelers is required",
     }),
 
-    price: number({
-      required_error: "Price is required",
-    }),
+    
 
     // tripDuration: number({
     //   required_error: "Trip duration is required",

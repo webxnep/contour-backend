@@ -19,8 +19,8 @@ export const emergencyContactSchema = new mongoose.Schema({
 })
 
 export interface transportation {
-  method: String,
-  transportationCharge: Number,
+  method: String;
+  transportationCharge: Number;
 }
 
 export const transportationSchema = new mongoose.Schema({
@@ -28,9 +28,19 @@ export const transportationSchema = new mongoose.Schema({
   transportationCharge: Number,
 })
 
+export interface children {
+  age:Number;
+  no: Number;
+}
+
+export const childrenSchema = new mongoose.Schema({
+  age:Number,
+  no: Number
+})
+
 export interface travelInsurance {
-  insurance: Boolean,
-  insuranceCharge: Number,
+  insurance: Boolean;
+  insuranceCharge: Number;
 }
 
 export const travelInsuranceSchema = new mongoose.Schema({
@@ -39,32 +49,50 @@ export const travelInsuranceSchema = new mongoose.Schema({
 })
 
 export interface price {
-  insurance: Boolean,
-  insuranceCharge: Number,
+  tripPrice:Number;
+  transportationCharge: Number;
+  insuranceCharge:Number;
+  tax:Number;
+  bankCharge:Number;
+  totalCharge:Number;
 }
 
 export const priceSchema = new mongoose.Schema({
-  insurance: Boolean,
-  insuranceCharge: Number,
+  tripPrice:Number,
+  transportationCharge: Number,
+  insuranceCharge:Number,
+  tax:Number,
+  bankCharge:Number,
+  totalCharge:Number
+})
+
+export interface payment {
+  paymentMethod:String;
+  amountPaid: Number;
+}
+
+export const paymentSchema = new mongoose.Schema({
+  paymentMethod:String,
+  amountPaid: Number
 })
 
 export interface BookingInput {
   fullName: string;
   email: string;
   phone: string;
-  // dob: Date;
-  // gender: string;
-  // departureDate: Date;
-  // noOfAdults: number;
-  // passportNo: string;
-  // emergencyContact: emergency;
-  // transportation: transportation;
-  // travelInsurance:travelInsurance;
-  // price:price;
+  dob?: Date;
+  gender?: string;
+  departureDate?: Date;
+  noOfAdults?: number;
+  noOfChildren?:children[];
+  passportNo?: string;
+  emergencyContact?: emergency;
+  transportation?: transportation;
+  travelInsurance?:travelInsurance;
+  price?:price;
+  payment?:payment
   expedition?: ExpeditionDocument["_id"];
   package?: string;
-
-
   notes?: string;
   status?: string;
   paymentStatus?: string;
@@ -86,23 +114,36 @@ const bookingSchema = new mongoose.Schema(
     },
     fullName: { type: String, required: true },
     email: { type: String, required: true },
-    // pCode: { type: String, required: true },
     phone: { type: String, required: true },
-    // pNationality: { type: String, required: true },
-    // pPassportNo: { type: String, required: true },
-    // pDob: { type: String, required: true },
-    // departureDate: { type: String, required: true },
-    noOfTravelers: { type: Number, required: true },
-    price: { type: Number, required: true },
-    // tripDuration: { type: Number, required: true },
+    noOfAdults: { type: Number},
     notes: { type: String },
     package: { type: String },
-
     expedition: { type: mongoose.Schema.Types.ObjectId, ref: "Expedition" },
     status: { type: String, enum: ["active", "canceled"], default: "active" },
-    // paymentStatus: { type: String, enum: ["unpaid", "fullyPaid", "partiallyPaid"], default: "unpaid" },
-    // isSeen: { type: Boolean, default: false },
+    dob: { type: Date},
+    departureDate: { type: Date},
+    passportNo: { type: String},
+    gender: { type: String},
+    emergencyContact: {
+      type: emergencyContactSchema
+    },
+    noOfChildren: {
+      type: Array(childrenSchema)
+    },
+    transportation: {
+      type: transportationSchema
+    },
+    travelInsurance: {
+      type: travelInsuranceSchema
+    },
+    price: {
+      type: priceSchema
+    },
+    payment: {
+      type: paymentSchema
+    },
   },
+
   {
     timestamps: true,
   }

@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { customAlphabet } from "nanoid";
 import { CollectionDocument } from "./collection.model";
 import { CategoryDocument } from "./category.model";
+import { ExpeditionDocument } from "./expedition";
 
 const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz0123456789", 10);
 
@@ -12,6 +13,7 @@ export interface GroupDepartureInput {
     previousPrice: string;
     totalQuantity: string;
     soldQuantity: string;
+    expedition: ExpeditionDocument["_id"];
 }
 
 export interface GroupDepartureDocument extends GroupDepartureInput, mongoose.Document {
@@ -33,7 +35,7 @@ const GroupDepartureSchema = new mongoose.Schema(
         previousPrice: { type: String },
         totalQuantity: { type: String, required: true },
         soldQuantity: { type: String, required: true },
-
+        expedition: { type: mongoose.Schema.Types.ObjectId, ref: "Expedition" },
     },
     {
         timestamps: true,

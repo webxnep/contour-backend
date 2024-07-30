@@ -65,7 +65,7 @@ const expeditionSchema = new mongoose.Schema(
     collections: { type: mongoose.Schema.Types.ObjectId, ref: "Collections" },
     banner: { type: String },
     routeMap: { type: String },
-    slug: { type: String },
+    slug: { type: String ,unique:true},
     maxElevation: { type: String },
      duration: { type: String },
     

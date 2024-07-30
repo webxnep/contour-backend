@@ -28,7 +28,7 @@ const CategorySchema = new mongoose.Schema(
     name: { type: String, required: true },
     image: { type: String },
     description: { type: String },
-    slug: { type: String },
+    slug: { type: String ,unique:true},
     collections: { type: mongoose.Schema.Types.ObjectId, ref: "Collections" },
   },
   {

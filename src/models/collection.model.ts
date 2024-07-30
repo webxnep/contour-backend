@@ -25,7 +25,7 @@ const CollectionSchema = new mongoose.Schema(
     },
     name: { type: String, required: true },
     image: { type: String},
-    slug: { type: String},
+    slug: { type: String,unique:true},
     description: { type: String},
   },
   {
