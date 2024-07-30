@@ -3,7 +3,7 @@ import { object, number, string, TypeOf, any, boolean, date } from "zod";
 
 const payload = {
   body: object({
-    startDate:date({
+    startDate: date({
       required_error: "Start date  is required",
     }),
     endDate: date({
@@ -17,17 +17,19 @@ const payload = {
     price: string({
       required_error: "Price is required",
     }),
+    duration: number({
+      required_error: "Price is required",
+    }),
+    totalQuantity: number({
+      required_error: "total quantity is required",
+    }),
 
-    totalQuantity: string({
-        required_error: "total quantity is required",
-      }),
-
-      soldQuantity: string({
-        required_error: "sold quantity is required",
-      }),
-      expedition: string({
-        required_error: "expedition is required",
-      }),
+    soldQuantity: number({
+      required_error: "sold quantity is required",
+    }),
+    expedition: string({
+      required_error: "expedition is required",
+    }),
   }),
 };
 

@@ -28,6 +28,6 @@ router.patch(
 router.get("/:groupDepartureId", [validate(getGroupDepartureSchema)], getGroupDepartureHandler);
 router.get("/", getAllGroupDepartureHandler);
 router.delete("/:groupDepartureId", [validate(deleteGroupDepartureSchema)], deleteGroupDepartureHandler);
-router.get("/by-expiditionId/:expeditionId",  getGroupDepartureByExpeditionHandler);
 
 export default router;
+router.get("/by-expiditionId/:expeditionId",  getGroupDepartureByExpeditionHandler);

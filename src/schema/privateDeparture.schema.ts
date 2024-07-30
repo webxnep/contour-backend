@@ -14,6 +14,10 @@ const payload = {
       required_error: "Previous price is required",
     }),
 
+    duration: number({
+      required_error: "Duration is required",
+    }),
+
     price: string({
       required_error: "Price is required",
     }),
