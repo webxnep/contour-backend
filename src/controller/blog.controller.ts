@@ -2,24 +2,26 @@ import { NextFunction, Request, Response } from "express";
 import AppError from "../utils/appError";
 import { uploadSingleFile } from "../middleware/uploadSingleFile";
 import { CreateBlogInput, UpdateBlogInput } from "../schema/blog.schema";
-import { createBlog, findBlog, findAndUpdateBlog, deleteBlog, findAllBlog } from "../service/blog.service";
+import { createBlog, findBlog, findAndUpdateBlog, deleteBlog, findAllBlog, findAllBlogForCard } from "../service/blog.service";
 var colors = require("colors");
 
 export async function createBlogHandler(req: Request<{}, {}, CreateBlogInput["body"]>, res: Response, next: NextFunction) {
   try {
-    const { files } = req as { files: { [fieldname: string]: Express.Multer.File[] } };
-    const banner = files["banner"][0];
-    const authorImage = files["authorImage"][0];
+    // const { files } = req as { files: { [fieldname: string]: Express.Multer.File[] } };
+    // const banner = files["banner"][0];
+    // const authorImage = files["authorImage"][0];
 
-    const front = await uploadSingleFile(banner);
-    const back = await uploadSingleFile(authorImage);
+    // const front = await uploadSingleFile(banner);
+    // const back = await uploadSingleFile(authorImage);
 
     const body = req.body;
-    const expedition = await createBlog({ ...body, banner: front, authorImage: back });
+    console.log(body);
+    // const expedition = await createBlog({ ...body, banner: front, authorImage: back });
+    const blog = await createBlog(body);
     return res.json({
       status: "success",
       msg: "Create success",
-      data: expedition,
+      data: blog,
     });
   } catch (error: any) {
     console.error(colors.red("msg:", error.message));
@@ -29,34 +31,17 @@ export async function createBlogHandler(req: Request<{}, {}, CreateBlogInput["bo
 
 export async function updateBlogHandler(req: Request<UpdateBlogInput["params"]>, res: Response, next: NextFunction) {
   try {
-    const { files } = req as { files?: { [fieldname: string]: Express.Multer.File[] } }; // '?' to make files optional
-
     const blogId = req.params.blogId;
-    const expedition = await findBlog({ blogId });
-    if (!expedition) {
-      next(new AppError("expedition detail does not exist", 404));
-      return; // Return early to avoid further execution
+    const blog = await findBlog({ blogId });
+
+    if (!blog) {
+      next(new AppError("Blog does not exist", 404));
+      return; 
     }
 
-    let img1 = expedition.banner;
-    if (files && files["banner"]) {
-      const banner = files["banner"][0];
-      img1 = await uploadSingleFile(banner);
-    }
-
-    let img2 = expedition.authorImage;
-    if (files && files["authorImage"]) {
-      const authorImage = files["authorImage"][0];
-      img2 = await uploadSingleFile(authorImage);
-    }
-
-    const updatedBlog = await findAndUpdateBlog(
-      { blogId },
-      { ...req.body, banner: img1, authorImage: img2 },
-      {
-        new: true,
-      }
-    );
+    const updatedBlog = await findAndUpdateBlog({ blogId }, req.body, {
+      new: true,
+    });
 
     return res.json({
       status: "success",
@@ -72,6 +57,7 @@ export async function updateBlogHandler(req: Request<UpdateBlogInput["params"]>,
 export async function getBlogHandler(req: Request<UpdateBlogInput["params"]>, res: Response, next: NextFunction) {
   try {
     const blogId = req.params.blogId;
+    console.log(blogId);
     const expedition = await findBlog({ blogId });
 
     if (!expedition) {
@@ -112,7 +98,22 @@ export async function deleteBlogHandler(req: Request<UpdateBlogInput["params"]>,
 
 export async function getAllBlogHandler(req: Request, res: Response, next: NextFunction) {
   try {
-    const results = await findAllBlog();
+    const filter = req.query;
+    const results = await findAllBlog(filter);
+    return res.json({
+      status: "success",
+      msg: "Get all success",
+      data: results,
+    });
+  } catch (error: any) {
+    console.error(colors.red("msg:", error.message));
+    next(new AppError("Internal server error", 500));
+  }
+}
+
+export async function getAllBlogHandlerForCard(req: Request, res: Response, next: NextFunction) {
+  try {
+    const results = await findAllBlogForCard();
     return res.json({
       status: "success",
       msg: "Get all success",

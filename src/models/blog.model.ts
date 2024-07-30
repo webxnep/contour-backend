@@ -5,8 +5,7 @@ const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz0123456789", 10);
 
 export interface BlogInput {
   title: string;
-  authorImage: string;
-  authorName: string;
+  slug: string;
   banner: string;
   description: string;
 }
@@ -25,9 +24,8 @@ const blogSchema = new mongoose.Schema(
       default: () => `blog_${nanoid()}`,
     },
     title: { type: String, required: true },
-    authorImage: { type: String, required: true },
-    authorName: { type: String, required: true },
-    banner: { type: String, required: true },
+    slug: { type: String, required: true },
+    banner: { type: String },
     description: { type: String, require: true },
   },
   {

@@ -19,7 +19,17 @@ export async function deleteBlog(query: FilterQuery<BlogDocument>) {
   return BlogModel.deleteOne(query);
 }
 
-export async function findAllBlog() {
-  const result = await BlogModel.find().sort({ createdAt: -1 }); 
+// export async function findAllBlog() {
+//   const result = await BlogModel.find().sort({ createdAt: -1 });
+//   return result;
+// }
+
+export async function findAllBlog(query: FilterQuery<BlogDocument>, options: QueryOptions = { lean: true }) {
+  const result = await BlogModel.find(query, {}, options).sort({ createdAt: -1 });
+  return result;
+}
+
+export async function findAllBlogForCard() {
+  const result = await BlogModel.find().select("title slug banner createdAt").sort({ createdAt: -1 });
   return result;
 }

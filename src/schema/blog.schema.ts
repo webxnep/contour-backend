@@ -5,13 +5,14 @@ const payload = {
     title: string({
       required_error: "title is required",
     }),
-    authorImage: any(),
 
-    authorName: string({
-      required_error: "authorName is required",
+    slug: string({
+      required_error: "Slug is required",
     }),
 
-    banner: any(),
+    banner: string({
+      required_error: "Banner is required",
+    }),
 
     description: string({
       required_error: "description is required",
