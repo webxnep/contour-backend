@@ -9,10 +9,11 @@ const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz0123456789", 10);
 export interface GroupDepartureInput {
     startDate: Date;
     endDate: Date;
+    duration:number;
     price: string;
     previousPrice: string;
-    totalQuantity: string;
-    soldQuantity: string;
+    totalQuantity: number;
+    soldQuantity: number;
     expedition: ExpeditionDocument["_id"];
 }
 
@@ -31,10 +32,11 @@ const GroupDepartureSchema = new mongoose.Schema(
         },
         startDate: { type: String, required: true },
         endDate: { type: String },
+        duration: { type: Number },
         price: { type: String },
         previousPrice: { type: String },
-        totalQuantity: { type: String, required: true },
-        soldQuantity: { type: String, required: true },
+        totalQuantity: { type:Number, required: true },
+        soldQuantity: { type:Number, required: true },
         expedition: { type: mongoose.Schema.Types.ObjectId, ref: "Expedition" },
     },
     {
