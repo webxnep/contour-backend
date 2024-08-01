@@ -3,6 +3,10 @@ import AppError from "../utils/appError";
 import { CreateCollectionInput, UpdateCollectionInput } from "../schema/collection.schema";
 import { createCollection, deleteCollection, findAllCollection, findAndUpdateCollection, findCollection } from "../service/collection.service";
 import { uploadSingleFile } from "../middleware/uploadSingleFile";
+import { getCategoryFromCollectionHandler } from "./category.controller";
+import { findManyCategory } from "../service/category.service";
+import CategoryModel from "../models/category.model";
+import ExpeditionModel from "../models/expedition";
 var colors = require("colors");
 
 export async function createCollectionHandler(req: Request<{}, {}, CreateCollectionInput["body"]>, res: Response, next: NextFunction) {
@@ -98,12 +102,23 @@ export async function deleteCollectionHandler(req: Request<UpdateCollectionInput
       next(new AppError("collection does not exist", 404));
     }
 
-    await deleteCollection({ collectionId });
-    return res.json({
-      status: "success",
-      msg: "Delete success",
-      data: {},
-    });
+    const [categoryCount, expeditionCount] = await Promise.all([
+      CategoryModel.count({ collections: collection?._id }),
+      ExpeditionModel.count({ collections: collection?._id })
+    ]);
+    if (categoryCount < 1 && expeditionCount<1) { 
+      await deleteCollection({ collectionId });
+      return res.json({
+        status: "success",
+        msg: "Delete success",
+        data: {},
+      });
+    }
+
+    else{
+      next(new AppError("Cannot delete collection as it contains other categories or trips", 500));
+    }
+   
   } catch (error: any) {
     console.error(colors.red("msg:", error.message));
     next(new AppError("Internal server error", 500));
