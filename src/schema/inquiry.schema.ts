@@ -13,7 +13,9 @@ const payload = {
     address: string({
       required_error: "address is required",
     }),
-
+    phoneNo: string({
+      required_error: "phone number is required",
+    }),
     message: string({
       required_error: "message is required",
     }),
