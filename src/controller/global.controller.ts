@@ -84,22 +84,22 @@ export async function getNestedData(req:any,res:any) {
         // .exec()
   
       // Fetch categories with references populated and selected fields
-      // const categories = await CategoryModel.find({})
-      //   .select('name image collections')
-      //   .populate('collections', 'name image')
-      //   .lean();
+      const categories = await CategoryModel.find({})
+        .select('name image collections')
+        .populate('collections', 'name image')
+        .lean();
 
         // console.log(categories)
   
       // Fetch expeditions with references populated and selected fields
-      // const expeditions = await ExpeditionModel.find({})
-      //   .select('name subheading category banner collections ')
-      //   .populate('category', 'name image')
-      //   .populate('collections', 'name image')
-      //   .lean();
+      const expeditions = await ExpeditionModel.find({})
+        .select('name subheading category banner collections ')
+        .populate('category', 'name image')
+        .populate('collections', 'name image')
+        .lean();
   
       // Structure the data
-      const nestedData = collections
+      const nestedData = [{...collections,category:[{...categories,expeditions:[{...expeditions}]}]}]
         // const collectionCategories = categories
         //   .filter(category => category.collections._id.toString() === collection._id.toString())
         //   .map(category => {
