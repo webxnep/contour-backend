@@ -7,6 +7,7 @@ export interface InquiryInput {
   fullName: string;
   email: string;
   address: string;
+  phoneNo:string;
   message: string;
 }
 
@@ -25,6 +26,7 @@ const inquirySchema = new mongoose.Schema(
     },
     fullName: { type: String, required: true },
     email: { type: String, required: true },
+    phoneNo: { type: String, required: true },
     address: { type: String, required: true },
     message: { type: String, required: true },
   },
