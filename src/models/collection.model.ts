@@ -8,6 +8,7 @@ export interface CollectionInput {
   image?: string[];
   description?: string;
   slug?: string;
+  showInHomePage?:boolean;
 }
 
 export interface CollectionDocument extends CollectionInput, mongoose.Document {
@@ -27,6 +28,7 @@ const CollectionSchema = new mongoose.Schema(
     image: { type: Array(String)},
     slug: { type: String,unique:true},
     description: { type: String},
+    showInHomePage: { type: Boolean, default: false },
   },
   {
     timestamps: true,
