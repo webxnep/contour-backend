@@ -36,7 +36,6 @@ export async function getFaqByExpeditionHandler(req: Request, res: Response, nex
   try {
     const expeditionId = req.params.expeditionId;
     const results = await findFaqByExpedition({ expedition: expeditionId });
-
     return res.json({
       status: "success",
       msg: "Get success",
@@ -79,9 +78,10 @@ export async function getFaqByExpeditionHandler(req: Request, res: Response, nex
 export async function getNestedData(req:any,res:any) {
     try {
       // Fetch collections with selected fields
-      const collections = await CollectionModel.find({})
+      const collections = await CollectionModel.find()
         .select('name image')
         .lean();
+        // .exec()
   
       // Fetch categories with references populated and selected fields
       const categories = await CategoryModel.find({})
@@ -99,39 +99,39 @@ export async function getNestedData(req:any,res:any) {
         .lean();
   
       // Structure the data
-      const nestedData = collections.map((collection) => {
-        const collectionCategories = categories
-          .filter(category => category.collections._id.toString() === collection._id.toString())
-          .map(category => {
-            const categoryExpeditions = expeditions
-              .filter(expedition => expedition.category._id.toString() === category._id.toString())
-              .map(expedition => ({
-                _id: expedition._id,
-                name: expedition.name,
-                subheading: expedition.subheading,
-                image: expedition.banner,
+      const nestedData = [{...collections,category:[{...categories,expeditions:[{...expeditions}]}]}]
+        // const collectionCategories = categories
+        //   .filter(category => category.collections._id.toString() === collection._id.toString())
+        //   .map(category => {
+        //     const categoryExpeditions = expeditions
+        //       .filter(expedition => expedition.category._id.toString() === category._id.toString())
+        //       .map(expedition => ({
+        //         _id: expedition._id,
+        //         name: expedition.name,
+        //         subheading: expedition.subheading,
+        //         image: expedition.banner,
                 
-              }));
+        //       }));
   
-            return {
-              _id: category._id,
-              name: category.name,
-              image: category.image,
-              expeditions: categoryExpeditions,
-            };
-          });
+        //     return {
+        //       _id: category._id,
+        //       name: category.name,
+        //       image: category.image,
+        //       expeditions: categoryExpeditions,
+        //     };
+        //   });
   
-        return {
-          _id: collection._id,
-          name: collection.name,
-          image: collection.image,
-          categories: collectionCategories,
-        };
-      });
+        // return {
+        //   _id: collection._id,
+        //   name: collection.name,
+        //   image: collection.image,
+        //   categories: collectionCategories,
+        // };
+      // });
   
     //   console.log(JSON.stringify(collectionsMap, null, 2));
     //   return collectionsMap;
-    // console.log(nestedData)
+    console.log("##",nestedData,"##")
     // console.log(JSON.stringify(nestedData, null, 2));
     // return nestedData;
     return res.json({
