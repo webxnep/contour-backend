@@ -30,7 +30,7 @@ export async function createExpeditionHandler(req: Request<{}, {}, CreateExpedit
     });
   } catch (error: any) {
     console.error(colors.red("msg:", error.message));
-    next(new AppError("Internal server error", 500));
+    next(new AppError(error.message, 500));
   }
 }
 
@@ -72,7 +72,7 @@ export async function updateExpeditionHandler(req: Request<UpdateExpeditionInput
     });
   } catch (error: any) {
     console.error(colors.red("msg:", error.message));
-    next(new AppError("Internal server error", 500));
+    next(new AppError(error.message, 500));
   }
 }
 

@@ -65,7 +65,7 @@ export async function updateCollectionHandler(req: Request<UpdateCollectionInput
     });
   } catch (error: any) {
     console.error("Error:", error.message);
-    next(new AppError("Internal server error", 500));
+    next(new AppError(error.message, 500));
   }
 }
 
