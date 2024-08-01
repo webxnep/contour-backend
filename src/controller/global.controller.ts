@@ -164,7 +164,7 @@ export async function getNestedData(req: Request, res: Response) {
     // Structure the data
     const nestedData = collections.map((collection) => {
       const collectionCategories = categories
-        .filter(category => category.collections.some((col:any) => col._id.toString() === collection._id.toString()))
+        .filter(category => Array.isArray(category.collections) && category.collections.some(col => col._id.toString() === collection._id.toString()))
         .map(category => {
           const categoryExpeditions = expeditions
             .filter(expedition => expedition.category._id.toString() === category._id.toString())
