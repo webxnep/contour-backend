@@ -5,7 +5,8 @@ import { createBookingSchema, deleteBookingSchema, getBookingSchema } from "../s
 import { requireAdmin } from "../middleware/requireAdmin";
 const router = express.Router();
 
-router.post("/", [validate(createBookingSchema)], createBookingHandler);
+// router.post("/", [validate(createBookingSchema)], createBookingHandler);
+router.post("/", createBookingHandler);
 router.patch("/:bookingId", updateBookingHandler);
 router.patch("/cancel/:bookingId", cancelBookingHandler);
 router.get("/:bookingId", [validate(getBookingSchema)], getBookingHandler);

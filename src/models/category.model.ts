@@ -39,3 +39,4 @@ const CategorySchema = new mongoose.Schema(
 const CategoryModel = mongoose.model<CategoryDocument>("Category", CategorySchema);
 
 export default CategoryModel;
+

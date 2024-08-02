@@ -4,8 +4,6 @@ import { customAlphabet } from "nanoid";
 const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz0123456789", 10);
 
 export interface UserInput {
-  fullName: string;
-  username: string;
   email: string;
   password: string;
   verifyToken: string;
@@ -26,8 +24,6 @@ const userSchema = new mongoose.Schema(
       unique: true,
       default: () => `user_${nanoid()}`,
     },
-    fullName: { type: String, required: true },
-    username: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     verifyToken: { type: String },

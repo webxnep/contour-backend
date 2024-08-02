@@ -2,14 +2,29 @@ import { NextFunction, Request, Response } from "express";
 import AppError from "../utils/appError";
 import { CreateBookingInput, UpdateBookingInput } from "../schema/booking.schema";
 import { createBooking, deleteBooking, findAllBooking, findAndUpdateBooking, findBooking } from "../service/booking.service";
+import { createUser, findUser } from "../service/user.service";
+import { generateHashedPassword } from "../utils/generateHashedPassword";
+import crypto from "crypto";
 
 var colors = require("colors");
 
-export async function createBookingHandler(req: Request<{}, {}, CreateBookingInput["body"]>, res: Response, next: NextFunction) {
+// export async function createBookingHandler(req: Request<{}, {}, CreateBookingInput["body"]>, res: Response, next: NextFunction) {
+export async function createBookingHandler(req: Request<{}, {}, any>, res: Response, next: NextFunction) {
   try {
+    // Before creating booking register the user
+    const userExistWithEmail = await findUser({ email: req.body.email });
+    if (userExistWithEmail) {
+      return next(new AppError("User with this email already exists", 409));
+    }
+
+    const hashedPassword = await generateHashedPassword(req.body.password);
+    const token = crypto.randomBytes(20).toString("hex");
+    const registeredUser = await createUser({ ...req.body, password: hashedPassword, verifyToken: token, isVerified: false });
+    console.log("registeredUser", registeredUser);
     const body = req.body;
-    const booking = await createBooking(body);
-    return res.json({
+    const booking = await createBooking({...body,paymentStatus: "pending", paymentMethod: "card", user: registeredUser?._id });
+    console.log(booking)
+    return res.status(201).json({
       status: "success",
       msg: "Booking success",
       data: booking,
@@ -38,7 +53,7 @@ export async function updateBookingHandler(req: Request<UpdateBookingInput["para
       }
     );
 
-    return res.json({
+    return res.status(201).json({
       status: "success",
       msg: "Update success",
       data: updatedCostBooking,
@@ -102,7 +117,7 @@ export async function cancelBookingHandler(req: Request<UpdateBookingInput["para
 
     const updatedCostBooking = await findAndUpdateBooking(
       { bookingId },
-      { ...req.body, status: "canceled"},
+      { ...req.body, status: "canceled" },
       {
         new: true,
       }
