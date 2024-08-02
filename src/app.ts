@@ -45,7 +45,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:3001", "http://localhost:3002", "https://contour-backend.webxnep.com", "http://contour-backend.webxnep.com", "https://contour-dashboard.vercel.app", "http://contour-dashboard.vercel.app", "https://contour-frontend.vercel.app", "http://contour-frontend.vercel.app/"],
+    origin: ["http://localhost:3000", "http://localhost:3001", "http://localhost:3002", "https://contour-backend.webxnep.com", "http://contour-backend.webxnep.com", "https://contour-dashboard.vercel.app", "http://contour-dashboard.vercel.app", "https://contour-frontend.vercel.app", "http://contour-frontend.vercel.app/","https://contour-frontend-new-updated.vercel.app","http://contour-frontend-new-updated.vercel.app"],
     credentials: true,
   })
 );
