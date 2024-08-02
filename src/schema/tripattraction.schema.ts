@@ -6,9 +6,7 @@ const payload = {
             required_error: "title is required",
         }),
 
-        description: string({
-            required_error: "description is required",
-        }),
+        description: string(),
 
         expedition: string({
             required_error: "expedition is required",
