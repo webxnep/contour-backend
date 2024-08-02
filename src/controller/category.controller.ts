@@ -3,6 +3,7 @@ import AppError from "../utils/appError";
 import { CreateCategoryInput, ReadCategoryFromCollectionInput, UpdateCategoryInput } from "../schema/category.schema";
 import { createCategory, deleteCategory, findAllCategory, findAndUpdateCategory, findCategory, findManyCategory } from "../service/category.service";
 import { uploadSingleFile } from "../middleware/uploadSingleFile";
+import ExpeditionModel from "../models/expedition";
 
 var colors = require("colors");
 
@@ -77,7 +78,7 @@ export async function getCategoryHandler(req: Request<UpdateCategoryInput["param
     });
   } catch (error: any) {
     console.error(colors.red("msg:", error.message));
-    next(new AppError("Internal server error", 500));
+    next(new AppError(error.message, 500));
   }
 }
 
@@ -90,12 +91,22 @@ export async function deleteCategoryHandler(req: Request<UpdateCategoryInput["pa
       next(new AppError("category does not exist", 404));
     }
 
-    await deleteCategory({ categoryId });
-    return res.json({
-      status: "success",
-      msg: "Delete success",
-      data: {},
-    });
+    const [expeditionCount] = await Promise.all([
+     
+      ExpeditionModel.count({ category: category?._id })
+    ]);
+    if (expeditionCount<1) { 
+      await deleteCategory({ categoryId });
+      return res.json({
+        status: "success",
+        msg: "Delete success",
+        data: {},
+      });
+    }
+    else{
+      next(new AppError("Cannot delete category as it contains other trips", 500));
+    }
+   
   } catch (error: any) {
     console.error(colors.red("msg:", error.message));
     next(new AppError("Internal server error", 500));

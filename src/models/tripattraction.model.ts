@@ -6,7 +6,7 @@ const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz0123456789", 10);
 
 export interface TripAttractionInput {
   title: string;
-  description: string;
+  description?: string;
   expedition: ExpeditionDocument["_id"];
  
 }
@@ -25,7 +25,7 @@ const tripAttractionSchema = new mongoose.Schema(
       default: () => `trip-attraction_${nanoid()}`,
     },
     title: { type: String, required: true },
-    description: { type: String, required: true },
+    description: { type: String },
     expedition: { type: mongoose.Schema.Types.ObjectId, ref: "Expedition" },
   },
   {
