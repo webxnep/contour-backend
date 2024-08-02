@@ -7,7 +7,7 @@ export async function createBooking(input: BookingInput) {
 }
 
 export async function findBooking(query: FilterQuery<BookingDocument>, options: QueryOptions = { lean: true }) {
-  const result = await BookingModel.findOne(query, {}, options).populate('expedition');
+  const result = await BookingModel.findOne(query, {}, options).populate('expedition').populate("user");
   return result;
 }
 
@@ -21,6 +21,6 @@ export async function deleteBooking(query: FilterQuery<BookingDocument>) {
 }
 
 export async function findAllBooking() {
-  const result = await BookingModel.find().populate("expedition").sort({ createdAt: -1 }); 
+  const result = await BookingModel.find().populate("expedition").populate("user").sort({ createdAt: -1 }); 
   return result;
 }
