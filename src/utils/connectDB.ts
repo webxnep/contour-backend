@@ -17,7 +17,7 @@ export default async function connectDB() {
       await mongoose.connect(
         `mongodb+srv://devteamwebx:DHubFirjV5UCTlqC@cluster0.4fbwmld.mongodb.net/contourDb?retryWrites=true&w=majority&appName=Cluster0`
       );
-      //  await mongoose.connect("mongodb://127.0.0.1:27017/contor");
+        // await mongoose.connect("mongodb://127.0.0.1:27017/contor");
       logger.info("DB connected...");
     } catch (error: any) {
       logger.error("Could not connect to db", error);

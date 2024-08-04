@@ -6,8 +6,9 @@ const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz0123456789", 10);
 
 export interface ActivityInput {
   name: string;
-  image: string;
+  banner: string;
   description: string;
+  slug:string;
 }
 
 export interface ActivityDocument extends ActivityInput, mongoose.Document {
@@ -24,8 +25,10 @@ const activitySchema = new mongoose.Schema(
       default: () => `activity_${nanoid()}`,
     },
     name: { type: String, required: true },
+    slug: { type: String, required: true,unique:true },
     description: { type: String, required: true },
-    image: { type: String, required: true },
+    banner: { type: String, required: true },
+    images: { type: Array(String)},
   },
   {
     timestamps: true,
