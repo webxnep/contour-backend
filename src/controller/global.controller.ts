@@ -160,8 +160,8 @@ export async function getNestedData(req: Request, res: Response) {
 
     // Fetch expeditions with references populated and selected fields
     const expeditions = await ExpeditionModel.find({})
-      .select("name subheading category banner collections")
-      .populate("category", "name image")
+      .select("name subheading category banner expeditionId collections")
+      .populate("category", "name image ")
       .populate("collections", "name image")
       .lean();
 

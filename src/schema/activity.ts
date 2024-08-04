@@ -10,7 +10,10 @@ const payload = {
       required_error: "description is required",
     }),
 
-    image: any(),
+    banner:string(),
+    slug: string({
+      required_error: "slug is required",
+    }),
   }),
 };
 

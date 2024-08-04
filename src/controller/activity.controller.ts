@@ -7,13 +7,10 @@ var colors = require("colors");
 
 export async function createActivityHandler(req: Request<{}, {}, CreateActivityInput["body"]>, res: Response, next: NextFunction) {
   try {
-    const image = req.file;
-    console.log(image);
-
-    const url = await uploadSingleFile(image);
-    console.log(url);
+ 
     const body = req.body;
-    const activity = await createActivity({ ...body, image: url });
+    console.log(body);
+    const activity = await createActivity({ ...body});
 
     return res.status(201).json({
       status: "success",
@@ -28,8 +25,7 @@ export async function createActivityHandler(req: Request<{}, {}, CreateActivityI
 
 export async function updateActivityHandler(req: Request<UpdateActivityInput["params"]>, res: Response, next: NextFunction) {
   try {
-    const image = req.file;
-    console.log(image);
+ 
 
     const activityId = req.params.activityId;
     const activity = await findActivity({ activityId });
@@ -39,14 +35,10 @@ export async function updateActivityHandler(req: Request<UpdateActivityInput["pa
       return;
     }
 
-    let img1;
-    if (image) {
-      img1 = await uploadSingleFile(image);
-    }
-
+   
     const updatedActivity = await findAndUpdateActivity(
       { activityId },
-      { ...req.body, image: img1 },
+      { ...req.body },
       {
         new: true,
       }
@@ -106,12 +98,22 @@ export async function deleteActivityHandler(req: Request<UpdateActivityInput["pa
 
 export async function getAllActivityHandler(req: Request, res: Response, next: NextFunction) {
   try {
-    const results = await findAllActivity();
+
+
+    const { filter, sortBy, order, select } = req.body;
+    const sortOptions: any = {};
+    if (sortBy && order) {
+      sortOptions[sortBy] = order === 'asc' ? 1 : -1;
+    }
+    console.log(req.body);
+    
+    const results = await findAllActivity(select || '', filter, sortOptions);
     return res.json({
       status: "success",
-      msg: "Get all activity success",
+      msg: "Get all activities success",
       data: results,
     });
+   
   } catch (error: any) {
     console.error(colors.red("msg:", error.message));
     next(new AppError("Internal server error", 500));

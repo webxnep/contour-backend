@@ -6,7 +6,7 @@ import { createActivitySchema, getActivitySchema, deleteActivitySchema } from ".
 
 const router = express.Router();
 
-router.post("/", [upload.single("image"), validate(createActivitySchema)], createActivityHandler);
+router.post("/",  [validate(createActivitySchema)], createActivityHandler);
 router.patch("/:activityId", [upload.single("image")], updateActivityHandler);
 router.get("/:activityId", [validate(getActivitySchema)], getActivityHandler);
 router.get("/", getAllActivityHandler);
