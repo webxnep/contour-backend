@@ -19,7 +19,15 @@ export async function deleteActivity(query: FilterQuery<ActivityDocument>) {
   return ActivityModel.deleteOne(query);
 }
 
-export async function findAllActivity() {
-  const result = await ActivityModel.find().sort({ createdAt: -1 }); 
-  return result;
+export async function findAllActivity(select: string, filter: any = {}, sortOptions: any = {}) {
+  try {
+    console.log(filter,select,sortOptions)
+    const result = await ActivityModel.find(filter)
+      .select(select) 
+      .sort(sortOptions)
+      .exec();
+    return result;
+  } catch (error:any) {
+    throw new Error('Error fetching activities: ' + error.message);
+  }
 }
