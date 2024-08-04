@@ -21,9 +21,9 @@ export interface BookingInput {
   expedition: ExpeditionDocument["_id"];
   user: UserDocument["_id"];
 
-  emergencyName: string;
-  emergencyPhone: number;
-  emergencyRelationship: string;
+  emergencyName?: string;
+  emergencyPhone?: number;
+  emergencyRelationship?: string;
   paymentOption: "full-payment" | "deposit-payment";
   paymentId?: string;
   totalAmount?: number;
@@ -57,9 +57,9 @@ const BookingSchema = new mongoose.Schema(
     // isInsurance: { type: Boolean, required: true },
     paymentMethod: { type: String, required: true },
     paymentStatus: { type: String, required: true },
-    emergencyName: { type: String, required: true },
-    emergencyPhone: { type: Number, required: true },
-    emergencyRelationship: { type: String, required: true },
+    emergencyName: { type: String, required: false },
+    emergencyPhone: { type: Number, required: false },
+    emergencyRelationship: { type: String, required: false },
     paymentId: { type: String, required: false },
     totalAmount: { type: Number, required: true },
     depositAmount: { type: Number, required: false },
