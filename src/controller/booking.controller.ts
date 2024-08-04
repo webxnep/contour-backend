@@ -136,7 +136,11 @@ export async function cancelBookingHandler(req: Request<UpdateBookingInput["para
 
 export async function getAllBookingHandler(req: Request, res: Response, next: NextFunction) {
   try {
-    const results = await findAllBooking();
+    const filter = req.query; 
+  
+
+
+    const results = await findAllBooking(filter);
     return res.json({
       status: "success",
       msg: "Get all booking success",

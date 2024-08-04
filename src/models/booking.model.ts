@@ -7,7 +7,8 @@ const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz0123456789", 10);
 
 export interface BookingInput {
   fullName: string;
-  // phone: number;
+  phone: number;
+  postalCode: number;
   dob: Date;
   adults: number;
   childrens: number;
@@ -24,6 +25,11 @@ export interface BookingInput {
   emergencyPhone: number;
   emergencyRelationship: string;
   paymentOption: "full-payment" | "deposit-payment";
+  paymentId?: string;
+  totalAmount?: number;
+  depositAmount?: number;
+  remainingAmount?: number;
+  additionalServices?: string[];
 }
 
 export interface BookingDocument extends BookingInput, mongoose.Document {
@@ -41,7 +47,8 @@ const BookingSchema = new mongoose.Schema(
     },
     fullName: { type: String, required: true },
 
-    // phone: { type: Number, required: true },
+    phone: { type: Number, required: true },
+    postalCode: { type: Number, required: true },
     dob: { type: Date, required: true },
     adults: { type: Number, required: true },
     childrens: { type: Number, required: true },
@@ -53,6 +60,12 @@ const BookingSchema = new mongoose.Schema(
     emergencyName: { type: String, required: true },
     emergencyPhone: { type: Number, required: true },
     emergencyRelationship: { type: String, required: true },
+    paymentId: { type: String, required: false },
+    totalAmount: { type: Number, required: true },
+    depositAmount: { type: Number, required: false },
+    remainingAmount: { type: Number, required: false },
+    additionalServices: { type: [String], required: false },
+
     paymentOption: {
       type: String,
       required: true,

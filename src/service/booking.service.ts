@@ -20,7 +20,16 @@ export async function deleteBooking(query: FilterQuery<BookingDocument>) {
 
 }
 
-export async function findAllBooking() {
-  const result = await BookingModel.find().populate("expedition").populate("user").sort({ createdAt: -1 }); 
+// export async function findAllBooking() {
+export async function findAllBooking(query: FilterQuery<BookingDocument>, options: QueryOptions = { lean: true }) {
+  const result = await BookingModel.find(query, {}, options).populate("expedition").populate("user").sort({ createdAt: -1 }); 
   return result;
 }
+
+
+
+// export async function findAllExpeditionWithoutPopulate(query: FilterQuery<ExpeditionDocument>, options: QueryOptions = { lean: true }) {
+//   const result = await ExpeditionModel.find(query, {}, options)
+//   console.log(result)
+//   return result;
+// }
