@@ -16,7 +16,8 @@ export interface BookingInput {
   // isInsurance: boolean;
   paymentMethod: string;
   paymentStatus: string;
-
+  startDate: Date;
+  endDate: Date;
   expedition: ExpeditionDocument["_id"];
   user: UserDocument["_id"];
 
@@ -43,6 +44,8 @@ const BookingSchema = new mongoose.Schema(
 
     // phone: { type: Number, required: true },
     dob: { type: Date, required: true },
+    startDate: { type: Date, required: true },
+    endDate: { type: Date, required: true },
     adults: { type: Number, required: true },
     childrens: { type: Number, required: true },
     note: { type: String },
