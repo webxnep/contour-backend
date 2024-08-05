@@ -32,6 +32,7 @@ import factRoute from "../src/routes/fact.route";
 import valueAdditionRoute from "../src/routes/valueAddition.route";
 import tripAttractionRoute from "../src/routes/tripattraction.route";
 import globalRoute from "../src/routes/global.route";
+import customTripRoute from '../src/routes/customTrip.route'
 
 const app = express();
 // const port = process.env.PORT;
@@ -80,6 +81,7 @@ app.use("/api/faq", faqRoute);
 app.use("/api/fact", factRoute);
 app.use("/api/valueAddition", valueAdditionRoute);
 app.use("/api/tripAttraction", tripAttractionRoute);
+app.use("/api/custom-trip", customTripRoute);
 app.use("/api/nested-data-route", globalRoute);
 // Testing
 app.get("/healthChecker", (req: Request, res: Response, next: NextFunction) => {
