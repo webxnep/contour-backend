@@ -41,6 +41,7 @@ export interface ExpeditionInput {
   // isUpcoming?: string;
   isUpcoming?: boolean;
   isBestseller?: boolean;
+  showInHero?: boolean;
 }
 
 export interface ExpeditionDocument extends ExpeditionInput, mongoose.Document {
@@ -84,6 +85,8 @@ const expeditionSchema = new mongoose.Schema(
     // displayMeter: { type: String },
 
     isUpcoming: { type: Boolean, default: false },
+    
+    showInHero: { type: Boolean, default: false },
     isBestseller: { type: Boolean, default: false },
   },
   {
