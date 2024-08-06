@@ -8,7 +8,7 @@ const payload = {
     email: string({
       required_error: "email is required",
     }),
-    phone: number({
+    phone:string({
       required_error: "Participant phone no  is required",
     }),
     message: string().optional(),

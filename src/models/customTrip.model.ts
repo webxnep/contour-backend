@@ -12,12 +12,12 @@ export interface CustomTripInput {
     email: string;
     message?:string;
     fullName: string;
-    phone: number;
+    phone: string;
     noOfTravelers: any;
     travelDate: any;
-    location: string;
+    location?: string;
     accomodation: string;
-    budgetRange: any;
+    budgetRange?: any;
     expedition: ExpeditionDocument["_id"];
     user: UserDocument["_id"];
     activity: ActivityDocument["_id"];
@@ -40,14 +40,14 @@ const CustomTripSchema = new mongoose.Schema(
 
         noOfTravelers: { type: Schema.Types.Mixed, required: true },
         travelDate: { type: Schema.Types.Mixed, required: true },
-        location: { type: String, required: true },
+        location: { type: String},
         expedition: { type: mongoose.Schema.Types.ObjectId, ref: "Expedition" },
         activity: { type: mongoose.Schema.Types.ObjectId, ref: "Activity" },
         accomodation: { type: String, required: true },
-        budgetRange: { type: Schema.Types.Mixed, required: true },
+        budgetRange: { type: Schema.Types.Mixed },
 
         fullName: { type: String, required: true },
-        phone: { type: Number, required: true },
+        phone: { type: String, required: true },
 
         country: { type: String, required: true },
         email: { type: String, required: true },

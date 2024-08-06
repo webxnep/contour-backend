@@ -12,7 +12,7 @@ export async function findMedia(query: FilterQuery<MediaDocument>, options: Quer
 }
 
 export async function findMediaByExpedition(query: FilterQuery<MediaDocument>, options: QueryOptions = { lean: true }) {
-  const results = await MediaModel.find(query, {}, options);
+  const results = await MediaModel.find(query, {}, options).sort({ createdAt: -1 });
   return results;
 }
 

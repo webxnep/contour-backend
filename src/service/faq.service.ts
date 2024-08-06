@@ -12,7 +12,7 @@ export async function findFaq(query: FilterQuery<FaqDocument>, options: QueryOpt
 }
 
 export async function findFaqByExpedition(query: FilterQuery<FaqDocument>, options: QueryOptions = { lean: true }) {
-  const result = await FaqModel.find(query, {}, options);
+  const result = await FaqModel.find(query, {}, options).sort({ createdAt: -1 });
   return result;
 }
 

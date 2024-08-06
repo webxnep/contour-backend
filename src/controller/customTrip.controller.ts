@@ -6,7 +6,7 @@ import { createUser, findUser } from "../service/user.service";
 import { generateHashedPassword } from "../utils/generateHashedPassword";
 import crypto from "crypto";
 import { UpdateCustomTripInput } from "../schema/customTrip.schema";
-import { deleteCustomTrip, findAllCustomTrip, findAndUpdateCustomTrip, findCustomTrip } from "../service/customTrip.service";
+import { createCustomTrip, deleteCustomTrip, findAllCustomTrip, findAndUpdateCustomTrip, findCustomTrip } from "../service/customTrip.service";
 
 var colors = require("colors");
 
@@ -24,7 +24,7 @@ export async function createCustomTripHandler(req: Request<{}, {}, any>, res: Re
     // const registeredUser = await createUser({ ...req.body, password: hashedPassword, verifyToken: token, isVerified: false });
     // console.log("registeredUser", registeredUser);
     const body = req.body;
-    const customTrip = await createBooking({...body, user: "mmmm" });
+    const customTrip = await createCustomTrip({...body});
     console.log(customTrip)
     return res.status(201).json({
       status: "success",

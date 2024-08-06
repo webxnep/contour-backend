@@ -12,7 +12,7 @@ export async function findFact(query: FilterQuery<FactDocument>, options: QueryO
 }
 
 export async function findFactByExpedition(query: FilterQuery<FactDocument>, options: QueryOptions = { lean: true }) {
-  const result = await FactModel.find(query, {}, options);
+  const result = await FactModel.find(query, {}, options).sort({ createdAt: -1 });
   return result;
 }
 
