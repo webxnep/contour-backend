@@ -20,7 +20,7 @@ export interface CustomTripInput {
     budgetRange?: any;
     expedition: ExpeditionDocument["_id"];
     user: UserDocument["_id"];
-    activity: ActivityDocument["_id"];
+   
 
 }
 
@@ -42,7 +42,7 @@ const CustomTripSchema = new mongoose.Schema(
         travelDate: { type: Schema.Types.Mixed, required: true },
         location: { type: String},
         expedition: { type: mongoose.Schema.Types.ObjectId, ref: "Expedition" },
-        activity: { type: mongoose.Schema.Types.ObjectId, ref: "Activity" },
+       
         accomodation: { type: String, required: true },
         budgetRange: { type: Schema.Types.Mixed },
 

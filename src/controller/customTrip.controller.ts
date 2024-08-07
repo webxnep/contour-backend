@@ -69,7 +69,7 @@ export async function updateCustomTripHandler(req: Request<UpdateCustomTripInput
 export async function getCustomTripHandler(req: Request<UpdateCustomTripInput["params"]>, res: Response, next: NextFunction) {
   try {
     const customTripId = req.params.customTripId;
-    const customTrip = await findBooking({ customTripId });
+    const customTrip = await findCustomTrip({ customTripId });
 
     if (!customTrip) {
       next(new AppError("custom trip does not exist", 404));
@@ -89,7 +89,7 @@ export async function getCustomTripHandler(req: Request<UpdateCustomTripInput["p
 export async function deleteCustomTripHandler(req: Request<UpdateCustomTripInput["params"]>, res: Response, next: NextFunction) {
   try {
     const customTripId = req.params.customTripId;
-    const customTrip = await findBooking({ customTripId });
+    const customTrip = await findCustomTrip({ customTripId });
 
     if (!customTrip) {
       next(new AppError("custom trip does not exist", 404));
