@@ -113,13 +113,18 @@ export async function getAllCustomTripHandler(req: Request, res: Response, next:
   try {
     const filter = req.query; 
     const results = await findAllCustomTrip(filter);
+    
     return res.json({
       status: "success",
       msg: "Get all custom trip success",
       data: results,
     });
+
   } catch (error: any) {
+
     console.error(colors.red("msg:", error.message));
     next(new AppError("Internal server error", 500));
+  
   }
 }
+

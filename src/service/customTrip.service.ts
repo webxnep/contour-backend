@@ -8,7 +8,7 @@ export async function createCustomTrip(input: CustomTripInput) {
 }
 
 export async function findCustomTrip(query: FilterQuery<CustomTripDocument>, options: QueryOptions = { lean: true }) {
-  const result = await CustomTripModel.findOne(query, {}, options).populate('expedition').populate("user").populate("activity");
+  const result = await CustomTripModel.findOne(query, {}, options).populate('expedition');
   return result;
 }
 
@@ -23,7 +23,7 @@ export async function deleteCustomTrip(query: FilterQuery<CustomTripDocument>) {
 
 
 export async function findAllCustomTrip(query: FilterQuery<CustomTripDocument>, options: QueryOptions = { lean: true }) {
-  const result = await CustomTripModel.find(query, {}, options).populate("expedition").populate("user").populate("activity").sort({ createdAt: -1 }); 
+  const result = await CustomTripModel.find(query, {}, options).populate("expedition").sort({ createdAt: -1 }); 
   return result;
 }
 
