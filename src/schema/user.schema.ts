@@ -26,12 +26,7 @@ const payload = {
 
     role: string().default("user"),
 
-    // isPrivacyPloicyChecked: boolean()
-    //   .default(false)
-    //   .refine((value) => value === true, {
-    //     message: "Privacy policy must be accepted",
-    //     path: ["isPrivacyPloicyChecked"],
-    //   }),
+    
   }).refine((data) => data.password === data.passwordConfirmation, {
     message: "Passwords do not match",
     path: ["passwordConfirmation"],
@@ -72,11 +67,11 @@ export type DeleteUserInput = TypeOf<typeof deleteUserSchema>;
 const loginPayload = {
   body: object({
     email: string({
-      required_error: "email is required",
+      required_error: "Email is required",
     }),
 
     password: string({
-      required_error: "password is required",
+      required_error: "Password is required",
     }),
   }),
 };

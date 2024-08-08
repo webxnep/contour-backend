@@ -16,26 +16,34 @@ export interface ExpeditionInput {
   slug?: string;
   routeMap?: string;
   season?: string;
-   maxElevation?: string;
-   accomodation?: string;
-   duration?: string;
-   physical?: string;
-   activity?: string;
-   groupSize?: string;
+  maxElevation?: string;
+  accomodation?: string;
+  duration?: string;
+  physical?: string;
+  activity?: string;
+  groupSize?: string;
+
+  promoCode?: {
+    code?: string;
+    percentage?: number;
+    amount?: number;
+    isActive?: boolean;
+    expiration?: Date;
+  };
+
   // walkingPerDay?: string;
-  // 
+  //
   // bestSeason?: string;
-  // 
+  //
 
   // description?: string;
-  // 
+  //
   // country?: string;
   //
 
-  // 
+  //
   // age?: string;
   // location?: string;
-
 
   // type?: string;
   // isUpcoming?: string;
@@ -65,17 +73,24 @@ const expeditionSchema = new mongoose.Schema(
     collections: { type: mongoose.Schema.Types.ObjectId, ref: "Collections" },
     banner: { type: String },
     routeMap: { type: String },
-    slug: { type: String ,unique:true},
+    slug: { type: String, unique: true },
     maxElevation: { type: String },
-     duration: { type: String },
-    
-   
-   accomodation: { type: String },
+    duration: { type: String },
+
+    accomodation: { type: String },
 
     groupSize: { type: String },
-    
-     activity: { type: String },
-     physical: { type: String },
+
+    activity: { type: String },
+    physical: { type: String },
+
+    promoCode: {
+      code: { type: String },
+      percentage: { type: Number },
+      amount: { type: Number },
+      isActive: { type: Boolean },
+      expiration: { type: Date },
+    },
 
     // age: { type: String },
     // location: { type: String },

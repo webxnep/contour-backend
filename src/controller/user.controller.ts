@@ -9,9 +9,6 @@ import nodemailer from "nodemailer";
 import UserModel from "../models/user.model";
 import crypto from "crypto";
 
-
-
-
 export async function createUserHandler(req: Request<{}, {}, CreateUserInput["body"]>, res: Response, next: NextFunction) {
   try {
     const existingUserWithEmail = await findUser({ email: req.body.email });
@@ -34,7 +31,6 @@ export async function createUserHandler(req: Request<{}, {}, CreateUserInput["bo
         pass: "xefj njrz wifl utzh",
       },
     });
-
 
     const info = await transporter.sendMail({
       from: "epeak",
@@ -77,6 +73,10 @@ export async function loginUserHandler(req: Request<{}, {}, LoginUserInput["body
   if (!user) {
     return res.status(401).send("Invalid email or password");
   }
+
+  // if (!user.isVerified) {
+  //   return res.status(403).send("User is not verified, Please verify your email");
+  // }
 
   // Generate a token with the user payload and secret key
   const accessToken = jwt.sign({ user }, `${process.env.AUTH_SECRET_KEY}`, { expiresIn: "1d" });
