@@ -7,12 +7,12 @@ export async function createCollection(input: CollectionInput) {
 }
 
 export async function findCollection(query: FilterQuery<CollectionDocument>, options: QueryOptions = { lean: true }) {
-  const result = await CollectionModel.findOne(query, {}, options);
+  const result = await CollectionModel.findOne(query, {}, options).sort({createdAt:-1});
   return result;
 }
 
 export async function findAndUpdateCollection(query: FilterQuery<CollectionDocument>, update: UpdateQuery<CollectionDocument>, options: QueryOptions) {
-  return CollectionModel.findOneAndUpdate(query, update, options);
+  return CollectionModel.findOneAndUpdate(query, update, options).sort({createdAt:-1});;
 }
 
 export async function deleteCollection(query: FilterQuery<CollectionDocument>) {

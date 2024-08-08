@@ -12,7 +12,7 @@ export async function findCostExclude(query: FilterQuery<CostExcludeDocument>, o
 }
 
 export async function findCostExcludeByExpedition(query: FilterQuery<CostExcludeDocument>, options: QueryOptions = { lean: true }) {
-  const result = await CostExcludeModel.find(query, {}, options);
+  const result = await CostExcludeModel.find(query, {}, options).sort({ createdAt: -1 });
   return result;
 }
 

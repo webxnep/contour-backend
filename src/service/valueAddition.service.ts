@@ -12,7 +12,7 @@ export async function findValueAddition(query: FilterQuery<ValueAdditionDocument
 }
 
 export async function findValueAdditionByExpedition(query: FilterQuery<ValueAdditionDocument>, options: QueryOptions = { lean: true }) {
-  const result = await ValueAdditionModel.find(query, {}, options);
+  const result = await ValueAdditionModel.find(query, {}, options).sort({ createdAt: -1 });
   return result;
 }
 

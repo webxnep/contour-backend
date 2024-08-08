@@ -12,7 +12,7 @@ export async function findTripAttraction(query: FilterQuery<TripAttractionDocume
 }
 
 export async function findTripAttractionByExpedition(query: FilterQuery<TripAttractionDocument>, options: QueryOptions = { lean: true }) {
-    const result = await TripAttractionModel.find(query, {}, options);
+    const result = await TripAttractionModel.find(query, {}, options).sort({ createdAt: -1 });
     return result;
 }
 

@@ -12,7 +12,7 @@ export async function findIternary(query: FilterQuery<IternaryDocument>, options
 }
 
 export async function findIternaryByExpedition(query: FilterQuery<IternaryDocument>, options: QueryOptions = { lean: true }) {
-  const results = await IternaryModel.find(query, {}, options);
+  const results = await IternaryModel.find(query, {}, options).sort({ createdAt: -1 });
   return results;
 }
 
