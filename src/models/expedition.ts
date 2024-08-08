@@ -22,7 +22,7 @@ export interface ExpeditionInput {
   physical?: string;
   activity?: string;
   groupSize?: string;
-
+  price?: number;
   promoCode?: {
     code?: string;
     percentage?: number;
@@ -77,7 +77,7 @@ const expeditionSchema = new mongoose.Schema(
     slug: { type: String, unique: true },
     maxElevation: { type: String },
     duration: { type: String },
-
+    price: { type: Number },
     accomodation: { type: String },
 
     groupSize: { type: String },
@@ -100,7 +100,7 @@ const expeditionSchema = new mongoose.Schema(
     // displayMeter: { type: String },
 
     isUpcoming: { type: Boolean, default: false },
-    
+
     showInHero: { type: Boolean, default: false },
     isBestseller: { type: Boolean, default: false },
   },

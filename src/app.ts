@@ -33,6 +33,9 @@ import valueAdditionRoute from "../src/routes/valueAddition.route";
 import tripAttractionRoute from "../src/routes/tripattraction.route";
 import globalRoute from "../src/routes/global.route";
 import customTripRoute from '../src/routes/customTrip.route'
+import subscriberRoute from '../src/routes/subscriber.route';
+import discountRoute from '../src/routes/discount.route';
+
 
 const app = express();
 // const port = process.env.PORT;
@@ -84,7 +87,10 @@ app.use("/api/tripAttraction", tripAttractionRoute);
 app.use("/api/custom-trip", customTripRoute);
 app.use("/api/nested-data-route", globalRoute);
 app.use("/api/subscribers", subscriberRoute);
+app.use("/api/discounts", discountRoute);
+
 // Testing
+
 app.get("/healthChecker", (req: Request, res: Response, next: NextFunction) => {
   res.status(200).json({
     status: "success",
