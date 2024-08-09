@@ -10,7 +10,7 @@ const operation = retry.operation({
   maxTimeout: 5000, // Maximum time between retries (in milliseconds)
   randomize: true, // Randomize the timeouts
 });
-const connection=process.env.DB||""
+const {connection } = require('../config');
 export default async function connectDB() {
   operation.attempt(async () => {
     try {
