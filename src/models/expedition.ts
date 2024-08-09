@@ -125,6 +125,7 @@ const expeditionSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    
   }
 );
 

@@ -39,7 +39,7 @@ import discountRoute from '../src/routes/discount.route';
 
 const app = express();
 // const port = process.env.PORT;
-const port = 5017;
+const port = process.env.PORT||5017;
 
 // Middleware
 

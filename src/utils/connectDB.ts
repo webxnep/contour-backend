@@ -10,12 +10,12 @@ const operation = retry.operation({
   maxTimeout: 5000, // Maximum time between retries (in milliseconds)
   randomize: true, // Randomize the timeouts
 });
-
+const connection=process.env.DB||""
 export default async function connectDB() {
   operation.attempt(async () => {
     try {
       await mongoose.connect(
-        `mongodb+srv://devteamwebx:DHubFirjV5UCTlqC@cluster0.4fbwmld.mongodb.net/contourDb?retryWrites=true&w=majority&appName=Cluster0`
+        connection
       );
         //  await mongoose.connect("mongodb://127.0.0.1:27017/contor");
       logger.info("DB connected...");
