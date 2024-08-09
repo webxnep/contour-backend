@@ -17,7 +17,7 @@ export default async function connectDB() {
       await mongoose.connect(
         connection
       );
-        //  await mongoose.connect("mongodb://127.0.0.1:27017/contor");
+      
       logger.info("DB connected...");
     } catch (error: any) {
       logger.error("Could not connect to db", error);
