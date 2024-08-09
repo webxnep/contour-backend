@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { customAlphabet } from "nanoid";
 import { CollectionDocument } from "./collection.model";
 import { CategoryDocument } from "./category.model";
+import { any } from "zod";
 
 const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz0123456789", 10);
 
@@ -18,11 +19,11 @@ export interface ExpeditionInput {
   season?: string;
   maxElevation?: string;
   accomodation?: string;
-  duration?: string;
+  duration?: number;
   physical?: string;
   activity?: string;
   groupSize?: string;
-  price?: number;
+
   promoCode?: {
     code?: string;
     percentage?: number;
@@ -76,8 +77,8 @@ const expeditionSchema = new mongoose.Schema(
     routeMap: { type: String },
     slug: { type: String, unique: true },
     maxElevation: { type: String },
-    duration: { type: String },
-    price: { type: Number },
+    duration: { type: Number },
+
     accomodation: { type: String },
 
     groupSize: { type: String },
@@ -91,6 +92,24 @@ const expeditionSchema = new mongoose.Schema(
       amount: { type: Number },
       isActive: { type: Boolean },
       expiration: { type: Date },
+    },
+    price: {
+      adult: {
+        pricePerAdult: { type: Number },
+        discountsA: [{
+          minQuantity: { type: Number },
+          maxQuantity: { type: Number },
+          price: { type: Number }
+        }],
+      },
+      children: {
+        pricePerChildren: { type: Number },
+        discountsC: [{
+          minQuantity: { type: Number },
+          maxQuantity: { type: Number },
+          price: { type: Number }
+        }],
+      }
     },
 
     // age: { type: String },

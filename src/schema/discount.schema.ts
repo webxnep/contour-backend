@@ -13,6 +13,9 @@ const payload = {
     discountRate: number({
       required_error: "Discount rate is required",
     }),
+    expedition: string({
+        required_error: "expedition is required",
+      }),
   }),
 };
 

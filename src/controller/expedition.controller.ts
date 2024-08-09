@@ -36,6 +36,7 @@ export async function createExpeditionHandler(req: Request<{}, {}, CreateExpedit
 
 export async function updateExpeditionHandler(req: Request<UpdateExpeditionInput["params"]>, res: Response, next: NextFunction) {
   try {
+    console.log(req.body);
     const { files } = req as { files?: { [fieldname: string]: Express.Multer.File[] } }; // '?' to make files optional
 
     const expeditionId = req.params.expeditionId;
